@@ -8,48 +8,36 @@ $usernameErr = $nameErr = $numberErr = $emailErr = $passwordErr = "";
 
 if (isset($_POST['user_submit'])) {
 
-    $username = $_POST['username'];
-    if (empty($_POST['username']) || strlen($username) < 4) {
-        $usernameErr = "USER Name is Required!!(min 4 length)";
-    } else {
-        $username = test_input($_POST['username']);
-        $query = "SELECT * FROM users";
-        $result_query = mysqli_query($connection, $query);
-        while ($row = mysqli_fetch_assoc($result_query)) {
-            if ($username == $row['username']) {
-                $usernameErr = "Username Already Exists!!";
-                break;
+    $username = test_input($_POST['username']);
+        if (strlen($username) < 4) {
+            $usernameErr = "USER Name is Required!!(min 4 length)";
+        } else {
+            $query = "SELECT * FROM users";
+            $result_query = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($result_query)) {
+                if ($username == $row['username']) {
+                    $usernameErr = "Username Already Exists!!";
+                    break;
+                }
             }
         }
-    }
 
-    if (empty($_POST['name'])) {
-        $nameErr = "Name is Required!!";
-    } else {
-        $name = test_input($_POST['name']);
+    $name = test_input($_POST['name']);
         if (!preg_match("/^[a-zA-Z ]+$/", $name)) {
-            $nameErr = "Only letters and whitespace allowed!!";
+        $nameErr = "Only letters and whitespace allowed!!";
         }
-    }
 
     $number = $_POST['number'];
-    if (!empty($number)) {
         if (preg_match('/^\d{10}$/', $number)) {
             $numberErr = "";
         } else {
             $numberErr = "Phone number invalid !";
         }
-    } else {
-        $numberErr = "You must provide a phone number !";
-    }
 
     $email = $_POST['email'];
-    if (empty($_POST['email'])) {
-        $emailErr = "Email is Required!!";
-    }
 
     $password = $_POST['password'];
-    if (empty($_POST['password']) || strlen($password) < 4) {
+    if (strlen($password) < 4) {
         $passwordErr = "Password is Required!!(min 4 length)";
     }
 
@@ -93,35 +81,35 @@ function test_input($data)
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username">
+                        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username" required>
                     </div>
                     <?php echo $usernameErr ?>
                 </div>
                 <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputName" name="name" placeholder="Name">
+                        <input type="text" class="form-control" id="inputName" name="name" placeholder="Name" required>
                     </div>
                     <?php echo $nameErr ?>
                 </div>
                 <div class="form-group row">
                     <label for="inputNumber" class="col-sm-2 col-form-label">Mobile no.</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputNumber" name="number" placeholder="Mobile no.">
+                        <input type="text" class="form-control" id="inputNumber" name="number" placeholder="Mobile no." required>
                     </div>
                     <?php echo $numberErr ?>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-6">
-                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required>
                     </div>
                     <?php echo $emailErr ?>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
                     </div>
                     <?php echo $passwordErr ?>
                 </div>
