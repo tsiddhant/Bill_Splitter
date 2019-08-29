@@ -1,0 +1,21 @@
+<?php include "includes/db.php"; ?>
+<?php include "includes/admin_header.php"; ?>
+<?php include "includes/admin_navigation.php"; ?>
+
+<?php
+if (isset($_GET['source'])) {
+    $source = $_GET['source'];
+} else {
+    $source = '';
+}
+switch ($source) {
+    case 'edit_profile':
+        include "includes/edit_profile.php";
+        break;
+    default:
+        include "includes/profile.php";
+        break;
+}
+?>
+
+<?php include "includes/admin_footer.php"; ?>
