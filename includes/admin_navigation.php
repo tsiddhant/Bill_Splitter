@@ -37,7 +37,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="friends.php?source=add_friends">Add Friends</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="profile.php?source=edit_profile&user_id={$_SESSION['user_id']}">Edit Profile</a>
+                            <a class="dropdown-item" href="profile.php?source=edit_profile">Edit Profile</a>
                         </div>
                     </li>
                 </ul>
