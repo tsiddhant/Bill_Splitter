@@ -16,7 +16,7 @@
                 <ul class="dropdown-menu">
                 </ul>
                 </li>
-                <li><a href="#">Welcome</a></li>
+                <li><a href="admin.php">ADMIN</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Register</a></li>
