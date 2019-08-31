@@ -27,6 +27,7 @@
                         <input class="form-check-input" type="checkbox" value="remember-me"> Remember me
                     </label>
                 </div>
+                <div><a href="mail_function/reset_password.php">Forgot Password?</a></div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block" name="login" value="Submit">
                 </div>

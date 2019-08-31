@@ -14,7 +14,7 @@
                             <hr>
                         </h5>
                         <div class="form-group">
-                            <table class="table-borderless">
+                            <table class="table-borderless table-responsive">
                                 <?php
                                 $query = "SELECT * FROM friend_request WHERE status = 'pending' AND user2_id = {$_SESSION['user_id']} ";
                                 $result_query = mysqli_query($connection, $query);
@@ -26,11 +26,11 @@
                                         $id = $row2['user_id'];
                                         $name = $row2['name'];
                                         $user_name = $row2['username'];
-                                        echo "<tr><td>{$name}</td></tr>";
+                                        echo "<tr><td colspan='3'>{$name}</td></tr>";
                                         echo "<tr><td>{$user_name}</td>";
+                                        echo "<td><a href='friends.php?reject={$id}' class='col-sm-6'>Reject</a></td>";
+                                        echo "<td><a href='friends.php?accept={$id}' class='col-sm-6'>Accept</a></td></tr><tr><td colspan='3'>----------------------------------</td></tr>"
                                         ?>
-                                        <td><a href="friends.php?request={$id}" class="col-sm-6">Accept</a></td></tr><tr><td>------------------</td></tr>
-
                                 <?php
                                     }
                                 }
@@ -56,9 +56,7 @@
                                 $usernameErr = "Username Exists!!";
                             }
                         }
-
-                        if (!empty($usernameErr)) {
-
+                        
                             $query = "SELECT * FROM users WHERE username = '{$friend_id}' ";
                             $select_user_profile_query = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_array($select_user_profile_query)) {
@@ -68,22 +66,66 @@
                                 $user_email = $row['email'];
                                 $user_number = $row['number'];
                             }
-                            $to = $user_email;
-                            $subject = "Friend Request";
-                            $body = "You have a new friend request from : {$_SESSION['user_id']}.";
 
-                            if (mail($to, $subject, $body)) {
-                                echo ("Email send!");
+
+                        $query2 = "SELECT * FROM friendship WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
+                        $result_query2 = mysqli_query($connection, $query2);
+                        while ($row = mysqli_fetch_assoc($result_query2)) {
+                            if ($user_id == $row['user1_id'] || $user_id == $row['user2_id']) {
+                                $usernameErr = "";
+                                echo "<script>
+                                    alert('Already Friend!');
+                                    </script>";
                             }
-                            $query = "INSERT INTO friend_request (`user1_id`, `user2_id`, `status`) ";
-                            $query .= "VALUES ('{$_SESSION['user_id']}', '{$user_id}', 'pending') ";
-                            $result_query = mysqli_query($connection, $query);
+                        }
+
+                        $query3 = "SELECT * FROM friend_request WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
+                        $result_query3 = mysqli_query($connection, $query3);
+                        while ($row = mysqli_fetch_assoc($result_query3)) {
+                            if ($user_id == $row['user1_id'] || $user_id == $row['user2_id']) {
+                                $usernameErr = "";
+                                echo "<script>
+                                    alert('Already Requested!');
+                                    </script>";
+                            }
+                        }
+
+
+                        if (!empty($usernameErr)) {
+
+                            // $query = "SELECT * FROM users WHERE username = '{$friend_id}' ";
+                            // $select_user_profile_query = mysqli_query($connection, $query);
+                            // while ($row = mysqli_fetch_array($select_user_profile_query)) {
+                            //     $user_id = $row['user_id'];
+                            //     $username = $row['username'];
+                            //     $user_name = $row['name'];
+                            //     $user_email = $row['email'];
+                            //     $user_number = $row['number'];
+                            // }
+
+
+                            // $to = $user_email;
+                            // $subject = "Friend Request";
+                            // $body = "You have a new friend request from : {$_SESSION['user_id']}.";
+
+                            // if (mail($to, $subject, $body)) {
+                            //     echo ("Email send!");
+
+                            $text = "You have received a new friend request from $username. Login now to accept it.";
+                            $subject = "Bill_Splitter : New Friend Request";
+                            $mail_status = sendmail($_SESSION['email'], $username, $subject, $text);
+                            if($mail_status){
+                                $query = "INSERT INTO friend_request (`user1_id`, `user2_id`, `status`) ";
+                                $query .= "VALUES ('{$_SESSION['user_id']}', '{$user_id}', 'pending') ";
+                                $result_query = mysqli_query($connection, $query);
+                            }
 
                             if (!$result_query) {
                                 die("ERROR IN SENDING MAIL!!" . mysqli_error($connection));
                             }
-                        }
                         header("Location: friends.php");
+                        }
+                        
                     }
 
                     ?>
@@ -113,3 +155,34 @@
         </div>
     </div>
 </div>
+
+
+<?php
+if (isset($_GET['accept'])) {
+    $user_id = $_GET['accept'];
+    $query = "INSERT INTO friendship(`user1_id`, `user2_id`, `date`) VALUES ({$user_id},{$_SESSION['user_id']},now())";
+    $result_query = mysqli_query($connection, $query);
+    if (!$result_query) {
+        die("ERROR IN ADDING FRIEND " . mysqli_error($connection));
+    }
+    if ($result_query) {
+        $query2 = "DELETE FROM friend_request WHERE user1_id = $user_id";
+        $result_query2 = mysqli_query($connection, $query2);
+        if (!$result_query2) {
+            die("ERROR IN ACCEPTING REQUEST " . mysqli_error($connection));
+        }
+    }
+    header("Location: friends.php");
+}
+?>
+<?php
+if (isset($_GET['reject'])) {
+    $user_id = $_GET['reject'];
+        $query = "DELETE FROM friend_request WHERE user1_id = $user_id";
+        $result_query = mysqli_query($connection, $query);
+        if (!$result_query) {
+            die("ERROR IN DELETING REQUEST " . mysqli_error($connection));
+        }
+    header("Location: friends.php");
+}
+?>
