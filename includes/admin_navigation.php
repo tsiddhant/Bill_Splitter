@@ -27,18 +27,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home Page<span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="profile.php?source=edit_profile">Edit Profile</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><?php echo $_SESSION['username']; ?></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            More
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="friends.php?source=add_friends">Add Friends</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="profile.php?source=edit_profile">Edit Profile</a>
-                        </div>
                     </li>
                 </ul>
             </div>

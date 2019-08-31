@@ -1,3 +1,5 @@
+    <div class="col-lg-8 container">
+        <h2 class="mt-4 align-content-center">Friends Section</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-warning">
                 <thead>
@@ -38,18 +40,19 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
-        <?php
+    <?php
 
-        if (isset($_GET['delete'])) {
-            $the_user_id = ($_GET['delete']);
+    if (isset($_GET['delete'])) {
+        $the_user_id = ($_GET['delete']);
 
-            $query = "DELETE FROM friendship WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
-            $delete_user_query = mysqli_query($connection, $query);
-            if (!$delete_user_query) {
-                die("ERROR!" . mysqli_error($connection));
-            }
-            header("Location: friends.php");
+        $query = "DELETE FROM friendship WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
+        $delete_user_query = mysqli_query($connection, $query);
+        if (!$delete_user_query) {
+            die("ERROR!" . mysqli_error($connection));
         }
+        header("Location: friends.php");
+    }
 
-        ?>
+    ?>

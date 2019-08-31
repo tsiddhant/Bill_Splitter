@@ -3,27 +3,11 @@
 
 <?php include "includes/admin_navigation.php"; ?>
 
+<div class="row">
+    <?php
+    include "includes/view_all_friends.php";
+    include "includes/friends_sidebar.php";
+    ?>
+</div>
 
-
-
-
-<h1 class="mt-4">Friends Section</h1>
-<?php
-if (isset($_GET['source'])) {
-    $source = $_GET['source'];
-} else {
-    $source = '';
-}
-switch ($source) {
-    case 'add_friends' : include "includes/add_friends.php";
-        break;
-    default:
-        include "includes/view_all_friends.php";
-        break;
-}
-?>
-
-
-
-
-    <?php include "includes/admin_footer.php"; ?>
+<?php include "includes/admin_footer.php"; ?>
