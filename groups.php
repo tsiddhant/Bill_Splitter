@@ -4,10 +4,6 @@
 <?php include "includes/admin_navigation.php"; ?>
 
 
- 
-     
-
-
 <br>
 <button name="group" class="btn btn-primary" id="1">Add Group</button>
 
