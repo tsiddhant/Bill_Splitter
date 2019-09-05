@@ -16,7 +16,7 @@
 
                     <?php
 
-                    $query = "SELECT p.* FROM friendship f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friendship f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']}";
+                    $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']}";
                     $select_friends = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_assoc($select_friends)) {
                         $user_id             = $row['user_id'];
@@ -47,7 +47,7 @@
     if (isset($_GET['delete'])) {
         $the_user_id = ($_GET['delete']);
 
-        $query = "DELETE FROM friendship WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
+        $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
         $delete_user_query = mysqli_query($connection, $query);
         if (!$delete_user_query) {
             die("ERROR!" . mysqli_error($connection));

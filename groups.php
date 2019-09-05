@@ -69,13 +69,14 @@ $(document).ready(function(){
                     $result = mysqli_query($connection, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $group_id         = $row['group_id'];
                         $group_name       = $row['group_name'];
                         $admin_username   = $row['admin_username'];
-                        $status            = $row['status'];
+                        $status           = $row['status'];
                         
                         echo '<tr scope="row">';
                         echo "<td>$i</td>";
-                        echo "<td><a href='#'>$group_name</a></td>";
+                        echo "<td><a href='groups_add.php?source={$group_id}'>$group_name</a></td>";
                         echo "<td>$admin_username</td>";
                         echo "<td>$status</td>";
                         
@@ -92,7 +93,7 @@ $(document).ready(function(){
         <?php
         if (isset($_GET['delete'])) {
             $the_user_id = ($_GET['delete']);
-            $query = "DELETE FROM friendship WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
+            $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
             $delete_user_query = mysqli_query($connection, $query);
             if (!$delete_user_query) {
                 die("ERROR!" . mysqli_error($connection));

@@ -68,7 +68,7 @@
                             }
 
 
-                        $query2 = "SELECT * FROM friendship WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
+                        $query2 = "SELECT * FROM friends WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
                         $result_query2 = mysqli_query($connection, $query2);
                         while ($row = mysqli_fetch_assoc($result_query2)) {
                             if ($user_id == $row['user1_id'] || $user_id == $row['user2_id']) {
@@ -160,7 +160,7 @@
 <?php
 if (isset($_GET['accept'])) {
     $user_id = $_GET['accept'];
-    $query = "INSERT INTO friendship(`user1_id`, `user2_id`, `date`) VALUES ({$user_id},{$_SESSION['user_id']},now())";
+    $query = "INSERT INTO friends(`user1_id`, `user2_id`, `date`) VALUES ({$user_id},{$_SESSION['user_id']},now())";
     $result_query = mysqli_query($connection, $query);
     if (!$result_query) {
         die("ERROR IN ADDING FRIEND " . mysqli_error($connection));
