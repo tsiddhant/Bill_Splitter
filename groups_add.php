@@ -28,7 +28,7 @@
                     <span><input type="text" name="friend" class="form-group" placeholder="Enter Valid Username"></span>
                     <span><button name="add_members" type="submit">ADD</button></span>
                 </div>
-            </form>
+            </form><br>
 <?php } ?>
 
 <?php
@@ -83,7 +83,7 @@ if(isset($_POST['add_members'])){
                     <span><input type="text" name="friend" class="form-group" placeholder="Enter Valid Username"></span>
                     <span><button name="delete_members" type="submit">DELETE</button></span>
                 </div>
-            </form>
+            </form><br>
 <?php } ?>
 
 <?php
@@ -128,12 +128,12 @@ if(isset($_POST['delete_members'])){
 <button name="group" class="btn btn-primary" id="1">Add Expense</button>
 <br><br>
 
-
         <div class="d-inline-block">
 
             <span><form id="group" class="form-check-inline" action="" method="post" onsubmit="return check();">
-                <div class="jumbotron" id="new">
-
+           
+                <span><div class="jumbotron embed-responsive-1by1" id="new">
+                
                         <?php if($_SESSION['user_id'] == $admin_id){ ?>
                             <span class="d-inline"><label class="" for="inlineFormCustomSelect">Members: </label></span>
                             <span class="d-inline"><select name="select[]" size="2" multiple="multiple" class="members" id="members" required>
@@ -312,22 +312,26 @@ $(document).ready(function() {
                 <div>
                     <input type="submit" class="btn btn-primary" name="add_expense" value="SUBMIT">
                 </div>
-            </div>
-            <!-- </form></span> -->
+           
+            </div></span>
+            
 
 
+           
             <span><div class="container" >
                 <div class="jumbotron" id="new2">
                     <div>
-                        <input type="radio" name="equal" value="1" id="radio1" required>1.Split Equally
+                        <input type="radio" name="equal" value="1" id="radio1" <?php if (isset($_POST['equal']) && $_POST['equal']=="1") echo "checked";?> required>1.Split Equally
                     </div>    
                         <br>
                     <div>    
-                        <input type="radio" name="equal" value="2" id="radio2" required>2.Split Exact 
+                        <input type="radio" name="equal" value="2" id="radio2" <?php if (isset($_POST['equal']) && $_POST['equal']=="2") echo "checked";?> required>2.Split Exact 
                     </div>
                 </div>
             </div></span>
+            
 
+            
 
             <span><div class="container" >
                 <div class="jumbotron" id="new3">
@@ -356,10 +360,11 @@ $(document).ready(function() {
         });
 
 </script>
-<!--  --><div id="js"></div>
+<!--  --><div id="js"><h3><b><i>NO OPTION SELECTED</i></b></h3></div>
 
                 </div>
             </div></span>
+            
 
 
         </form></span>
@@ -489,6 +494,7 @@ function check(){
 //////////////////////////CALCULATING SUM AND CHECKING
 $money=0; 
 $sum=0;
+$flag2=0;
    if($_POST['equal'] == "2"){
        foreach($_POST['money_exact'] as $money)
                {
@@ -496,11 +502,13 @@ $sum=0;
                       $sum = $sum + $money;
                   }
                   else{
-                      echo "<script type='text/javascript'>alert('!ENTER CORRECT VALUES IN EXACT AMOUNT!');</script>";
-                      break;
+                      if($flag2 == 0){
+                            echo "<script type='text/javascript'>alert('!ENTER NUMERIC VALUES IN EXACT AMOUNT!');</script>";
+                        $flag2 = 1;
+                      }
                   }       
                }
-       if($sum != $net_amount){
+       if($sum != $net_amount && $flag2 == 0){
            echo "<script type='text/javascript'>alert('!ENTER CORRECT VALUES IN EXACT AMOUNT!');</script>";
        }
    }
@@ -524,7 +532,7 @@ $sum=0;
                 }
             }
 
-            $per_person_price = $net_amount/$count+1;
+            $per_person_price = $net_amount/$count;
 //////////////////////////
 
         if($_POST['equal'] == "2" && $sum == $net_amount){
@@ -536,6 +544,34 @@ $sum=0;
 /////////////////////////           
             
                 $i =0;
+
+
+                $flag = 1;
+                $merge_query = "SELECT * FROM liability WHERE group_id = {$group_id}";
+                $result_merge_query = mysqli_query($connection,$merge_query);
+                while($row_merge = mysqli_fetch_assoc($result_merge_query)){
+                
+                    $person = $row_merge['user_name'];
+                    $paidto = $row_merge['pay_to'];
+                    $amountdue = $row_merge['amount_due'];
+                    $liabilityid = $row_merge['liability_id'];
+                    if($person == $member && $paidto == $paid_by){
+                            $flag = 0;
+                            $yes =  $a[$i]+$amountdue;
+                            $query4 = "UPDATE liability SET ";
+                            $query4 .= "amount_due  = '{$yes}' ";
+                            $query4 .= "WHERE liability_id = '{$liabilityid}' ";
+                            $result_liability_query = mysqli_query($connection,$query4);
+                            
+                
+                            if(!$result_main_query){
+                            die("ERROR LIABILITY QUERY ".mysqli_error($connection));
+                            }
+                    }
+                                    
+                } 
+
+            if($flag == 1){
                 if(isset($_POST["select"]))
                 foreach ($_POST['select'] as $member){
                     $liability_query = "INSERT INTO liability (user_name, group_id, pay_to, amount_due) VALUES ('{$member}', '{$group_id}', '{$paid_by}', '{$a[$i]}') ";
@@ -545,8 +581,10 @@ $sum=0;
                     if(!$result_main_query){
                     die("ERROR LIABILITY QUERY ".mysqli_error($connection));
                     }
+
                     $i = $i + 1;
                 }
+            }
             
         }
         else{
@@ -554,21 +592,63 @@ $sum=0;
 
             if(isset($_POST["select"]))
             foreach ($_POST['select'] as $member){
-                $liability_query = "INSERT INTO liability (user_name, group_id, pay_to, amount_due) VALUES ('{$member}', '{$group_id}', '{$paid_by}', '{$per_person_price}') ";
-                $result_liability_query = mysqli_query($connection,$liability_query);
-                
 
-                if(!$result_main_query){
-                die("ERROR LIABILITY QUERY ".mysqli_error($connection));
-                }
+$flag = 1;
+$merge_query = "SELECT * FROM liability WHERE group_id = {$group_id}";
+$result_merge_query = mysqli_query($connection,$merge_query);
+while($row_merge = mysqli_fetch_assoc($result_merge_query)){
+
+    $person = $row_merge['user_name'];
+    $paidto = $row_merge['pay_to'];
+    $amountdue = $row_merge['amount_due'];
+    $liabilityid = $row_merge['liability_id'];
+    if($person == $member && $paidto == $paid_by){
+            $flag = 0;
+            $yes =  $per_person_price+$amountdue;
+            $query4 = "UPDATE liability SET ";
+            $query4 .= "amount_due  = '{$yes}' ";
+            $query4 .= "WHERE liability_id = '{$liabilityid}' ";
+            $result_liability_query = mysqli_query($connection,$query4);
+            
+
+            if(!$result_main_query){
+            die("ERROR LIABILITY QUERY ".mysqli_error($connection));
+            }
+    }
+                    
+}            
+          if($flag == 1){
+            $liability_query = "INSERT INTO liability (user_name, group_id, pay_to, amount_due) VALUES ('{$member}', '{$group_id}', '{$paid_by}', '{$per_person_price}') ";
+            $result_liability_query = mysqli_query($connection,$liability_query);
+            
+
+            if(!$result_main_query){
+            die("ERROR LIABILITY QUERY ".mysqli_error($connection));
+            }
+        
+          }  
+            
+            
             }
 
 
-        }
-               
-                    
+        }           
 
                 }
-            
+
     } 
 ?> 
+<?php
+
+
+if(isset($_POST["add_expense"]))  {
+        ///////////////////DELETE LIABILITY FIELDS WITH SAME USERNAME AND PAID TO
+        $delete_query = "DELETE FROM liability WHERE user_name = '{$_POST['select2']}' AND pay_to = '{$_POST['select2']}' ";
+        $result_delete_query = mysqli_query($connection,$delete_query);
+        if(!$result_delete_query){
+            die("ERROR IN DELETING".mysqli_error($connection));
+        }
+        ///////////////////
+
+    }
+?>
