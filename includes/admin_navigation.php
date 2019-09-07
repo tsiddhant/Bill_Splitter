@@ -6,7 +6,7 @@
         <div class="list-group list-group-flush">
             <a href="admin.php" class="list-group-item list-group-item-action bg-light">Dashboard</a>
             <a href="groups.php" class="list-group-item list-group-item-action bg-light">Groups</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Expense Overview</a>
+            <a href="expense_overview.php" class="list-group-item list-group-item-action bg-light">Expense Overview</a>
             <a href="friends.php" class="list-group-item list-group-item-action bg-light">Friends</a>
             <a href="profile.php" class="list-group-item list-group-item-action bg-light">Profile</a>
             <a href="includes/logout.php" class="list-group-item list-group-item-action bg-light">Logout</a>

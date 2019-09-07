@@ -19,39 +19,6 @@
 <div class="col-lg-12 text-center"><span class="text-center"><h6>*<?php echo $status ?></h6></span></div>
 </div>
 
-<!-- PRINTING ALL EXPENSE RECORDS -->
-<div class="table-responsive col-lg-8" style="margin:auto;">
-            <table class="table table-borderless rounded table-hover table-warning">
-                <tbody class="table-hover">
-
-                    <?php
-                    $query = "SELECT * FROM expense WHERE group_id = $group_id ";
-                    $result = mysqli_query($connection, $query);
-                    $i = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $expense_desc         = $row['expense_description'];
-                        $total       = $row['total_expense'];
-                        $paidby   = $row['paid_by'];
-                        $status           = $row['status'];
-                        $date             = $row['date'];
-                        
-                        echo '<tr scope="row">';
-                        echo "<td>$i</td>";
-                        echo "<td>Created On:<br>$date</td>";
-                        echo "<td><i class='fa fa-money' aria-hidden='true'> $expense_desc</i></td>";
-                        echo "<td>$paidby-Paid:<br>$total</td>";
-                        echo "<td>Status:<br>$status</td>";
-                        echo "</tr>";
-                        $i++;
-                    }
-                    ?>
-
-                </tbody>
-            </table>
-</div>
-
-
-<br>
 <?php if($_SESSION['user_id'] == $admin_id){ ?>
     <div class="d-inline">
             <button name="button" class="btn btn-primary" id="0">Add Members</button>
