@@ -20,7 +20,7 @@
 </div>
 
 <!-- PRINTING ALL EXPENSE RECORDS -->
-<div class="table-responsive col-lg-6">
+<div class="table-responsive col-lg-8" style="margin:auto;">
             <table class="table table-borderless rounded table-hover table-warning">
                 <tbody class="table-hover">
 
@@ -53,15 +53,17 @@
 
 <br>
 <?php if($_SESSION['user_id'] == $admin_id){ ?>
+    <div class="d-inline">
             <button name="button" class="btn btn-primary" id="0">Add Members</button>
             <br><br>
-            <form  id="add" class="col-lg-2" action="" method="post">
+            <form  id="add" class="col-lg-8" action="" method="post">
                 <div class="d-inline-block">
                     <label>*Friends Only</label>
                     <span><input type="text" name="friend" class="form-group" placeholder="Enter Valid Username"></span>
                     <span><button name="add_members" type="submit">ADD</button></span>
                 </div>
             </form><br>
+    </div>
 <?php } ?>
 
 <?php
@@ -110,7 +112,7 @@ if(isset($_POST['add_members'])){
 <?php if($_SESSION['user_id'] == $admin_id){ ?>
             <button name="button" class="btn btn-primary" id="-1">Delete Members</button>
             <br><br>
-            <form  id="delete" class="col-lg-2" action="" method="post">
+            <form  id="delete" class="col-lg-8" action="" method="post">
                 <div class="d-inline-block">
                     <label>*Friends Only</label>
                     <span><input type="text" name="friend" class="form-group" placeholder="Enter Valid Username"></span>
@@ -222,22 +224,6 @@ if(isset($_POST['delete_members'])){
 
                         <?php } ?>
                         <br><br>
-
-<!-- NOW WE TRY TO STORE MULTIPLE SELECTION VALUES IN A VARIABLE TOGGLED BY A RADIO BUTTON -->
-<!-- <script type="text/javascript">
-$(document).ready(function() {
-    $("#radio2").click(function(){
-        //var members = [];
-        $.each($(".members option:selected"), function(){            
-            members.push($(this).val());
-        });
-        //alert("You have selected the member - " + members.join(", "));
-    });
-});
-</script> -->
-
-
-
 
 
                 <div>
@@ -587,12 +573,14 @@ $flag2=0;
                 
                     $person = $row_merge['user_name'];
                     $paidto = $row_merge['pay_to'];
+                    $date   = $row_merge['date'];
                     $amountdue = $row_merge['amount_due'];
                     $liabilityid = $row_merge['liability_id'];
-                    if($person == $member && $paidto == $paid_by){
+                    $t=time();
+                    if($person == $member && $paidto == $paid_by && $date == date("Y-m-d",$t)){
                             $flag = 0;
                             $yes =  $a[$i]+$amountdue;
-                            $query4 = "UPDATE liability SET ";
+                            $query4 = "UPDATE liability SET ";  
                             $query4 .= "amount_due  = '{$yes}' ";
                             $query4 .= "WHERE liability_id = '{$liabilityid}' ";
                             $result_liability_query = mysqli_query($connection,$query4);
@@ -633,9 +621,11 @@ while($row_merge = mysqli_fetch_assoc($result_merge_query)){
 
     $person = $row_merge['user_name'];
     $paidto = $row_merge['pay_to'];
+    $date   = $row_merge['date'];
     $amountdue = $row_merge['amount_due'];
     $liabilityid = $row_merge['liability_id'];
-    if($person == $member && $paidto == $paid_by){
+    $t=time();
+    if($person == $member && $paidto == $paid_by && $date == date("Y-m-d",$t)){
             $flag = 0;
             $yes =  $per_person_price+$amountdue;
             $query4 = "UPDATE liability SET ";
@@ -685,4 +675,3 @@ if(isset($_POST["add_expense"]))  {
 
     }
 ?>
-

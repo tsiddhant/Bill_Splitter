@@ -50,7 +50,7 @@ $(document).ready(function(){
 </script>
 
 
-<div class="table-responsive col-lg-6">
+<div class="table-responsive col-lg-8" style="margin:auto;">
             <table class="table table-borderless rounded table-hover table-warning">
                 <thead>
                     <tr>

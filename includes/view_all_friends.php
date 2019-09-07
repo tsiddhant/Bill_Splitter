@@ -27,7 +27,7 @@
 
                         echo '<tr scope="row">';
                         echo "<td>$user_id </td>";
-                        echo "<td>$username</td>";
+                        echo "<td><a href='friends.php?view={$user_id}'>$username</a></td>";
                         echo "<td>$user_name</td>";
                         echo "<td>$user_number</td>";
                         echo "<td>$user_email</td>";
@@ -40,6 +40,56 @@
                 </tbody>
             </table>
         </div>
+<?php      if(isset($_GET['view'])){   ?>
+        <h2 class="mt-4 align-content-center">Friend Expense</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-warning">
+                <thead>
+                    <tr>
+                        <th scope="col">Group Name:</th>
+                        <th scope="col">Owed To:</th>
+                        <th scope="col">Paid by</th>
+                        <th scope="col">Amount Due</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover"></tbody>
+        <?php
+       
+                $user__name;
+            $query = "SELECT * FROM users WHERE user_id = '{$_GET['view']}' ";
+            $select_frs = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($select_frs))
+                $user__name             = $row['username'];
+
+
+
+            $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.pay_to = '{$_SESSION['username']}' UNION SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.pay_to = '$user__name' AND l.user_name = '{$_SESSION['username']}' ";                    
+            $select_expense = mysqli_query($connection, $query9);
+                            while ($row = mysqli_fetch_assoc($select_expense)) {
+                            
+                                $groupname            = $row['group_name'];
+                                $owed_to                = $row['user_name'];
+                                $paid_by                = $row['pay_to'];
+                                $amountdue              = $row['amount_due'];
+                                $date                   = $row['date'];
+
+                                echo '<tr scope="row">';
+                                echo "<td>$groupname </td>";
+                                echo "<td>$owed_to</td>";
+                                echo "<td>$paid_by</td>";
+                                echo "<td>$amountdue</td>";
+                                echo "<td>$date</td>";
+                                echo "</tr>";
+                            }
+        
+        ?>
+        
+        </tbody>
+            </table>
+        </div>
+                        <?php    }    ?>
+
     </div>
 
     <?php
@@ -56,3 +106,4 @@
     }
 
     ?>
+

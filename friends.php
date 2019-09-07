@@ -4,10 +4,10 @@
 <?php include "includes/admin_navigation.php"; ?>
 
 <div class="row">
-    <?php
+<?php
     include "includes/view_all_friends.php";
     include "includes/friends_sidebar.php";
-    ?>
+?>
 </div>
 
 <?php include "includes/admin_footer.php"; ?>
