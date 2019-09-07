@@ -2,7 +2,7 @@
 <?php include "includes/admin_header.php"; ?>
 
 <?php include "includes/admin_navigation.php"; ?>
-
+<br>
 <h1><span class="blue">&lt;</span>Expense<span class="blue">&gt;</span> <span class="yellow">Overview</span></h1>
 <h2><?php echo $_SESSION['name'];?></h2>
 
@@ -19,7 +19,7 @@
 <tbody>
 
 <?php
- $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['user_id']}%' OR admin_username = '{$_SESSION['username']}' ";
+ $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['user_id']}%' OR admin_username = '{$_SESSION['username']}' ORDER BY date DESC";
  $result = mysqli_query($connection, $query);
  while ($row = mysqli_fetch_assoc($result)) {
      $group_id         = $row['group_id'];
@@ -31,7 +31,7 @@
      <tbody class="labels">
 			<tr>
 				<td colspan="5">
-					<label for=<?php  echo $group_name; ?> ><h1><?php  echo $group_name; ?></h1></label><br><label><h6><?php  echo $admin_username; ?></h6></label>
+					<label for=<?php  echo $group_name; ?> ><h1><?php  echo "+$group_name"; ?></h1></label><br><label><h6><?php  echo "$admin_username &nbsp&nbsp Created on:$date"; ?></h6></label>
 					<input type="checkbox" name="<?php  echo $group_name; ?>" id=<?php  echo $group_name; ?> data-toggle="toggle">
 				</td>
 			</tr>
@@ -39,7 +39,7 @@
     <tbody class="hide">
 <?php
 
-                    $query_1 = "SELECT * FROM expense WHERE group_id = $group_id ";
+                    $query_1 = "SELECT * FROM expense WHERE group_id = $group_id ORDER BY date ASC";
                     $result_1 = mysqli_query($connection, $query_1);
                     $i = 1;
                     while ($row_1 = mysqli_fetch_assoc($result_1)) {
@@ -47,7 +47,7 @@
                         $total_1            = $row_1['total_expense'];
                         $paidby_1           = $row_1['paid_by'];
                         $date_1             = $row_1['date'];
-                        
+                        echo "<tr><td colspan='5'>$date_1</td></tr>";
                         echo "<tr>";
                         echo "<td><h4>$i.</h4></td>";
                         echo "<td><h4>$expense_desc_1</h4></td>";
