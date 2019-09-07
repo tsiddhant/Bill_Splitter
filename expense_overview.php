@@ -47,13 +47,12 @@
                         $total_1            = $row_1['total_expense'];
                         $paidby_1           = $row_1['paid_by'];
                         $date_1             = $row_1['date'];
-                        echo "<tr><td colspan='5'>$date_1</td></tr>";
+                        echo "<tr><td colspan='4'>$date_1</td></tr>";
                         echo "<tr>";
                         echo "<td><h4>$i.</h4></td>";
                         echo "<td><h4>$expense_desc_1</h4></td>";
                         echo "<td><h4><i class='fa fa-money' aria-hidden='true'>$total_1</i></h4></td>";
                         echo "<td><h4>$paidby_1</h4></td>";
-                        echo "<td><button type='button' class='btn btn-primary' id='$i'>PAY</button>&nbsp&nbsp</td>";
                         echo "</tr>";
                         $i++;
                     }
