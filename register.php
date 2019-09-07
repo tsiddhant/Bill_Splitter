@@ -43,7 +43,7 @@ if (isset($_POST['user_submit'])) {
 
     $username = $_POST['username'];
     $username = mysqli_real_escape_string($connection, $username);
-    $name = mysqli_real_escape_string($connection, $name);
+    $name = mysqli_real_escape_string($connection, $name); 
 
     if (empty($nameErr) && empty($numberErr) && empty($usernameErr) && !empty($email) && !empty($password)) {
         $query = "INSERT INTO users (`username`, `name`, `number`, `email`, `password`) ";
