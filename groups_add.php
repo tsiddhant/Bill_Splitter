@@ -18,6 +18,39 @@
 <div class="col-lg-12 text-center"><span class="text-center"><h2><u><?php echo $group_name; ?></u></h2></span></div> 
 <div class="col-lg-12 text-center"><span class="text-center"><h6>*<?php echo $status ?></h6></span></div>
 </div>
+
+<!-- PRINTING ALL EXPENSE RECORDS -->
+<div class="table-responsive col-lg-6">
+            <table class="table table-borderless rounded table-hover table-warning">
+                <tbody class="table-hover">
+
+                    <?php
+                    $query = "SELECT * FROM expense WHERE group_id = $group_id ";
+                    $result = mysqli_query($connection, $query);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $expense_desc         = $row['expense_description'];
+                        $total       = $row['total_expense'];
+                        $paidby   = $row['paid_by'];
+                        $status           = $row['status'];
+                        $date             = $row['date'];
+                        
+                        echo '<tr scope="row">';
+                        echo "<td>$i</td>";
+                        echo "<td>Created On:<br>$date</td>";
+                        echo "<td><i class='fa fa-money' aria-hidden='true'> $expense_desc</i></td>";
+                        echo "<td>$paidby-Paid:<br>$total</td>";
+                        echo "<td>Status:<br>$status</td>";
+                        echo "</tr>";
+                        $i++;
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+</div>
+
+
 <br>
 <?php if($_SESSION['user_id'] == $admin_id){ ?>
             <button name="button" class="btn btn-primary" id="0">Add Members</button>
@@ -545,7 +578,8 @@ $flag2=0;
             
                 $i =0;
 
-
+                if(isset($_POST["select"]))
+                foreach ($_POST['select'] as $member){
                 $flag = 1;
                 $merge_query = "SELECT * FROM liability WHERE group_id = {$group_id}";
                 $result_merge_query = mysqli_query($connection,$merge_query);
@@ -572,8 +606,7 @@ $flag2=0;
                 } 
 
             if($flag == 1){
-                if(isset($_POST["select"]))
-                foreach ($_POST['select'] as $member){
+            
                     $liability_query = "INSERT INTO liability (user_name, group_id, pay_to, amount_due) VALUES ('{$member}', '{$group_id}', '{$paid_by}', '{$a[$i]}') ";
                     $result_liability_query = mysqli_query($connection,$liability_query);
                     
@@ -652,3 +685,4 @@ if(isset($_POST["add_expense"]))  {
 
     }
 ?>
+

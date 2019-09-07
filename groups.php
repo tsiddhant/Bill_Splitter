@@ -51,13 +51,14 @@ $(document).ready(function(){
 
 
 <div class="table-responsive col-lg-6">
-            <table class="table table-bordered table-hover table-warning">
+            <table class="table table-borderless rounded table-hover table-warning">
                 <thead>
                     <tr>
                         <th scope="col">Serial No.</th>
                         <th scope="col">Group Name</th>
                         <th scope="col">Admin Username</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Date Created</th>
                         
                         
                     </tr>
@@ -73,12 +74,14 @@ $(document).ready(function(){
                         $group_name       = $row['group_name'];
                         $admin_username   = $row['admin_username'];
                         $status           = $row['status'];
+                        $date             = $row['date'];
                         
                         echo '<tr scope="row">';
                         echo "<td>$i</td>";
                         echo "<td><a href='groups_add.php?source={$group_id}'>$group_name</a></td>";
                         echo "<td>$admin_username</td>";
                         echo "<td>$status</td>";
+                        echo "<td>$date</td>";
                         
                         // echo "<td><a href='friends.php?delete={$user_id}'>Delete</a></td>";
                         echo "</tr>";
