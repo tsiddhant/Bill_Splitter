@@ -64,11 +64,12 @@
 
 
 
-            $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.pay_to = '{$_SESSION['username']}' UNION SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.pay_to = '$user__name' AND l.user_name = '{$_SESSION['username']}' ";                    
+            $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.status = 'pending' AND l.pay_to = '{$_SESSION['username']}' UNION SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.pay_to = '$user__name' AND l.status = 'pending' AND l.user_name = '{$_SESSION['username']}' ";                    
             $select_expense = mysqli_query($connection, $query9);
                             while ($row = mysqli_fetch_assoc($select_expense)) {
                             
                                 $groupname            = $row['group_name'];
+                                $id                   = $row['liability_id'];
                                 $owed_to                = $row['user_name'];
                                 $paid_by                = $row['pay_to'];
                                 $amountdue              = $row['amount_due'];
@@ -80,6 +81,7 @@
                                 echo "<td>$paid_by</td>";
                                 echo "<td>$amountdue</td>";
                                 echo "<td>$date</td>";
+                                echo "<td><a href='friends.php?pay=$id'><input type='button' class='btn btn-primary' name='pay' value='PAY'></a></td>";
                                 echo "</tr>";
                             }
         
@@ -106,4 +108,3 @@
     }
 
     ?>
-

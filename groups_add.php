@@ -315,8 +315,20 @@ if(isset($_POST['delete_members'])){
                          and Split 
                         </label>
                         <button name="group2" type="button" class="btn btn-primary" id="next">---></button>
-
-                        
+                        <br><br><br>
+                       <!-- NEW SELECT CATEGORY TAB -->
+                        <label>Category:</label>
+                        <select name="category" id="category" size="1" required>
+                        <option value='OTHERS' selected>OTHERS</option>
+                        <?php
+                        $sql="SELECT * FROM category "; // Query to collect data
+                        $result_sql = mysqli_query($connection,$sql); 
+                        while($row = mysqli_fetch_assoc($result_sql)) {
+                        echo "<option value=$row[category]>$row[category]</option>";
+                        }
+                        ?>
+                        </select>
+                        <!-- END OF SELECT TAB -->
                         <br><br>
                     
                 </div>
@@ -501,6 +513,7 @@ function check(){
         $net_amount = $_POST['money'];
         $currency = $_POST['currency'];
         $paid_by = $_POST['select2'];
+        $tag    = $_POST['category'];
 
 //////////////////////////CALCULATING SUM AND CHECKING
 $money=0; 
@@ -528,8 +541,8 @@ $flag2=0;
                 if(isset($_POST['equal'])){
                     $split_type = $_POST['equal'];
                 }
-                    $main_query = "INSERT INTO expense (group_id, expense_description, total_expense, currency, paid_by, split_type) ";
-                    $main_query .=  "VALUES ('{$group_id}', '{$description}', {$net_amount}, '{$currency}', '{$paid_by}', '{$split_type}') ";
+                    $main_query = "INSERT INTO expense (group_id, expense_description, total_expense, currency, paid_by, split_type, tags) ";
+                    $main_query .=  "VALUES ('{$group_id}', '{$description}', {$net_amount}, '{$currency}', '{$paid_by}', '{$split_type}', '{$tag}') ";
                     $result_main_query = mysqli_query($connection,$main_query);
                     if(!$result_main_query){
                         die("ERROR MAIN QUERY ".mysqli_error($connection));
