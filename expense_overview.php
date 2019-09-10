@@ -11,7 +11,14 @@
               <br>
               <h1><span class="blue">&lt;</span>Expense<span class="blue">&gt;</span> <span class="yellow">Overview</span></h1>
               <h2><?php echo $_SESSION['name'];?></h2><h2><?php  if(isset($_GET['value'])) echo $_GET['value']; ?></h2>
+<!-- AJAX SEARCH -->
+    <div>
+    <label id="icon" for="name"><i class="icon-arrow-right"></i></label>
 
+	  <input type="text" oninput = "pass_data()" name="expense_description" id="expense_description" placeholder="Search by Description name" class="btn btn-primary col-lg-6" style="margin-left:23%;" >
+    </div>
+<!-- END -->
+              
               <table id="example" class="display container" cellspacing="0" width="100%">
                 <thead>
                   <tr>
@@ -37,12 +44,12 @@
                   <tbody class="labels">
                     <tr>
                       <td colspan="5">
-                        <label for=<?php  echo $group_name; ?> ><h1><?php  echo "+$group_name"; ?></h1></label><br><label><h6><?php  echo "$admin_username &nbsp&nbsp Created on:$date"; ?></h6></label>
+                        <label for=<?php  echo $group_name; ?> ><h1><?php  echo "+$group_name"; ?></h1></label><label>&nbsp&nbsp Click name to expand</label><br><label><h6><?php  echo "$admin_username &nbsp&nbsp Created on:$date"; ?></h6></label>
                         <input type="checkbox" name="<?php  echo $group_name; ?>" id=<?php  echo $group_name; ?> data-toggle="toggle">
                       </td>
                     </tr>
                   </tbody>
-                  <tbody class="hide">
+                  <tbody class="hide" style="display:none;">
               <?php
                               if(isset($_GET['value'])){
                                 $tags = $_GET['value'];
@@ -267,6 +274,28 @@ $(document).ready(function() {
 		$(this).parents().next('.hide').toggle();
 	});
 });
+
+</script>
+<script>
+ function pass_data(){
+
+    var expense_description = document.getElementById('expense_description').value;  
+	load_data(expense_description); 
+ } 
+ 
+ function load_data(expense_description)
+ {
+  
+  $.ajax({
+   type:"GET",	  
+   url:"find_expense.php",
+   data:{expense_description:expense_description},
+   success:function(data)
+   {
+    $('#example').html(data);
+   }
+  });
+ }
 
 </script>
 

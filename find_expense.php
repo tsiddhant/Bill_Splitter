@@ -23,6 +23,7 @@ if($total)
     <td>'.$row["expense_description"].'</td>
     <td>'.$row["total_expense"].'</td>	
     <td>'.$row["paid_by"].'</td>
+    <td>'.$row['tags'].'</td>
    </tr>';
    $i++;
  }
@@ -30,7 +31,7 @@ if($total)
 }
 else
 {
- echo "<h3>"; echo 'Data Not Found'; echo "</h3>";
+ echo "<br><h3>"; echo 'Data Not Found'; echo "</h3>";
 }
 
 ?>

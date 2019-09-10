@@ -44,7 +44,7 @@ if(isset($_POST['add_group'])){
 <script>   
 $(document).ready(function(){
   $("#1").click(function(){
-    $("form").toggle(400);
+    $("#group").toggle(400);
   });
 });
 </script>
@@ -108,44 +108,54 @@ $(document).ready(function(){
 
 <hr><br><br><br>
 
-<!-- COMMENTSSSSSSSSSSSSSSSSSSSSSS -->
+<!-- COMMENTS -->
  <!-- Blog Comments -->
  <?php if(isset($_GET['comment'])) {
-     $the_group_id = $_GET['comment'];
+
+      $the_group_id = $_GET['comment'];
 
             if (isset($_POST['create_comment'])) {
-                $comment_author = $_POST['comment_author'];
-                $comment_content = $_POST['comment_content'];
-                if (!empty($comment_author) && !empty($comment_content)) {
+                // $comment_author = $_POST['comment_author'];
+                $comment_content = $_POST['content'];
+                if (!empty($comment_content)) {
                     $query = "INSERT INTO comments (comment_group_id, comment_author, comment_content)";
-                    $query .= "VALUES ($the_group_id ,'{$comment_author}', '{$comment_content}')";
+                    $query .= "VALUES ($the_group_id ,'{$_SESSION['name']}', '{$comment_content}')";
                     $create_comment_query = mysqli_query($connection, $query);
                     if (!$create_comment_query) {
                         die('QUERY FAILED' . mysqli_error($connection));
                     }
                 }
-                header("Location:groups.php");
+            ?>
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Comment Posted.
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $(".alert").fadeOut(1000);
+                    });
+                </script>
+              <?php
             }
 ?>
 
             <!-- Comments Form -->
-            <div class="well col-lg-3 float-lg-right" style="height:300px; width:400px; margin-right:40px;">
+            <div id="contact_form">
+            <div class="well col-lg-3 float-lg-right" style="height:200px; width:400px; margin-right:40px;">
+            <div class="jumbotron">
                 <h4>Leave a Comment:</h4>
                 <form role="form" action="" method="post">
                     <div class="form-group">
-                        <label for="author">Name</label>
-                        <input class="form-control" type="text" name="comment_author">
+                        <label for="comment">Comment:</label>
+                        <textarea name="content" class="form-control" id="content" rows="3"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="comment">Comment</label>
-                        <textarea name="comment_content" class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="create_comment" id="submit_btn" class="button">Submit</button>
                 </form>
+            </div>
+            </div>
             </div>
 
            
-            <div class="overflow-auto" style="height:300px; width:400px;">
+            <div class="overflow-auto" style="height:300px; width:500px;">
             <!-- Posted Comments -->
 
             <?php 
@@ -166,7 +176,7 @@ $(document).ready(function(){
             ?>
 
             <!-- Comment -->
-            <div class="media float-lg-left" style="margin-left:50px;">
+            <div class="media float-lg-left" style="margin-left:50px;" id="here">
                 <a class="pull-left">
                 <i class="fa fa-comments" aria-hidden="true" style="font-size:25px;"></i>
                 </a>
@@ -183,8 +193,6 @@ $(document).ready(function(){
             
 <?php  } ?>
 </div>
-
-
 
 
 <?php include "includes/admin_footer.php"; ?>
