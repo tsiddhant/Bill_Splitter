@@ -10,7 +10,7 @@
               <div class="main">
               <br>
               <h1><span class="blue">&lt;</span>Expense<span class="blue">&gt;</span> <span class="yellow">Overview</span></h1>
-              <h2><?php echo $_SESSION['name'];?></h2>
+              <h2><?php echo $_SESSION['name'];?></h2><h2><?php  if(isset($_GET['value'])) echo $_GET['value']; ?></h2>
 
               <table id="example" class="display container" cellspacing="0" width="100%">
                 <thead>
@@ -96,17 +96,33 @@
               <div class="container">
                 
                   <br><br>
-                  <label class='alert-heading' value=''>CATEGORY</label><br>
+                  <label class='alert-heading' value=''><h3>&nbsp&nbsp&nbsp&nbsp&nbsp<u>TAGS</u></h3></label><br>
                   <?php $sql = "SELECT * FROM category";
                         $result_sql = mysqli_query($connection,$sql);
+                      
                         while($row = mysqli_fetch_assoc($result_sql)){
                             $tags = $row['category'];
-                            echo "<label class='alert-heading' value='$tags'><a href='expense_overview.php?value=$tags '>$tags</label><br>";
+                            echo "<label class='alert-heading' value='$tags'><a href='expense_overview.php?value=$tags'>&nbsp$tags</a></label><br><br>";
+                         
                         }
                   ?>
               </div>
         </div>
     </div>
+
+<!-- SIDEBAR SCRIPT -->
+<!-- <script>
+    $(document).ready(function(){
+      if(localStorage.selected) {
+        $('#' + localStorage.selected ).attr('checked', true);
+      }
+      $('.inputabs').click(function(){
+        localStorage.setItem("selected", this.id);
+      });
+    });
+
+</script> -->
+
 
 <style>
     #container1 {
