@@ -71,56 +71,92 @@ function test_input($data)
 ?>
 
 
-<div class="container col-lg-offset-3">
-    <div class="container col-sm-7 table-bordered ">
-        <h1>REGISTER NEW USER</h1>
-        <hr>
+<div class="container">
+    
+        
 
         <div>
-            <form action="register.php" method="post">
-                <div class="form-group row">
-                    <label for="username" class="col-sm-2 col-form-label">Username</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username" required>
-                    </div>
-                    <?php echo $usernameErr ?>
+            <form  action="register.php" method="post">
+            <h2 style="text-align: center">REGISTER NEW USER</h2>
+             <hr>
+            <div class="form-group row">
+                <!-- <label for="username" class="c col-form-label">Username:</label> -->
+                <div>
+                <label for="username">Username:</label>  
+                <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username" required>
                 </div>
-                <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputName" name="name" placeholder="Name" required>
-                    </div>
-                    <?php echo $nameErr ?>
+                <?php echo $usernameErr ?>
+            </div>
+            <div class="form-group row">
+                <label for="inputName" class=" col-form-label">Name:</label>
+                <div class="">
+                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Name" required>
                 </div>
-                <div class="form-group row">
-                    <label for="inputNumber" class="col-sm-2 col-form-label">Mobile no.</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="inputNumber" name="number" placeholder="Mobile no." required>
-                    </div>
-                    <?php echo $numberErr ?>
+                <?php echo $nameErr ?>
+            </div>
+            <div class="form-group row">
+                <label for="inputNumber" class="col-form-label">Mobile no.:</label>
+                <div class="">
+                    <input type="text" class="form-control" id="inputNumber" name="number" placeholder="Mobile no." required>
                 </div>
-                <div class="form-group row">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-6">
-                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required>
-                    </div>
-                    <?php echo $emailErr ?>
+                <?php echo $numberErr ?>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail" class=" col-form-label">Email:</label>
+                <div class="">
+                    <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required>
                 </div>
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
-                    </div>
-                    <?php echo $passwordErr ?>
+                <?php echo $emailErr ?>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
+                <div class="">
+                    <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-2 offset-sm-2">
-                        <input type="submit" name="user_submit" class="btn btn-primary" value="Register">
-                    </div>
+                <?php echo $passwordErr ?>
+            </div>
+            <div class="form-group row">
+                <div class="">
+                    <input type="submit" name="user_submit" class="btn btn-primary" value="Register">
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+   
 </div>
+
+
+<style>
+    .container { 
+      width: 400px; 
+      padding-top: 70px;
+    }
+
+    form {
+        margin-bottom: 15px;
+        background:  	#2c3e50;
+        color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px; 
+    }
+
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 10px;
+    }
+
+    .btn {
+        margin: auto 125px;
+        border-style: outset;
+    }
+    body {
+	background: #1A2980;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #26D0CE, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+	font-family: roboto;
+}
+
+</style>
 
 <?php include "includes/footer.php"; ?>
