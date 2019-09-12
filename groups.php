@@ -176,3 +176,11 @@ if(isset($_POST['add_group'])){
 <?php  } ?>
 
 <?php include "includes/admin_footer.php"; ?>
+
+<script>   
+$(document).ready(function(){
+  $("#1").click(function(){
+    $("#group").toggle(400);
+  });
+});
+</script>
