@@ -1,7 +1,45 @@
 <?php include "includes/db.php"; ?>
-<?php include "includes/admin_header.php"; ?>
+<?php ob_start(); ?>
+<?php session_start(); ?>
+<?php
+   if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+   }
+?>
 
-<?php include "includes/admin_navigation.php"; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   ADMIN HOMEPAGE
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+
+  <!-- Sidebar Navigation -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+   <!-- GOOGLE CHARTS -->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    
+  <?php include "includes/admin_navigation.php"; ?>
 
 
 <br>
@@ -50,7 +88,7 @@ $(document).ready(function(){
 </script>
 
 
-<div class="table-responsive col-lg-8" style="margin:auto;">
+<div class="embed-responsive col-lg-8" style="margin:auto; height:300px;">
             <table class="table table-borderless rounded table-hover table-warning">
                 <thead>
                     <tr>
@@ -131,7 +169,7 @@ $(document).ready(function(){
                 </div>
                 <script>
                     $(document).ready(function(){
-                        $(".alert").fadeOut(1000);
+                        $(".alert").fadeOut(5000);
                     });
                 </script>
               <?php
@@ -139,8 +177,8 @@ $(document).ready(function(){
 ?>
 
             <!-- Comments Form -->
-            <div id="contact_form">
-            <div class="well col-lg-3 float-lg-right" style="height:200px; width:400px; margin-right:40px;">
+            <div id="comment_form">
+            <div class="well col-lg-4 float-lg-right" style="height:200px; width:400px; margin-right:40px;">
             <div class="jumbotron">
                 <h4>Leave a Comment:</h4>
                 <form role="form" action="" method="post">
@@ -155,7 +193,6 @@ $(document).ready(function(){
             </div>
 
            
-            <div class="overflow-auto" style="height:300px; width:500px;">
             <!-- Posted Comments -->
 
             <?php 
@@ -175,8 +212,9 @@ $(document).ready(function(){
 
             ?>
 
+        <div class="overflow-auto" id="cdisplay" style="height:300px; width:400px;">
             <!-- Comment -->
-            <div class="media float-lg-left" style="margin-left:50px;" id="here">
+            <div class="media float-lg-left" style="margin-left:5px;" id="here">
                 <a class="pull-left">
                 <i class="fa fa-comments" aria-hidden="true" style="font-size:25px;"></i>
                 </a>
@@ -190,9 +228,44 @@ $(document).ready(function(){
             </div>
             
             <?php } ?>
-            
+            </div>
 <?php  } ?>
-</div>
+
 
 
 <?php include "includes/admin_footer.php"; ?>
+
+<style>
+@media (max-width: 1100px) {
+
+#comment_form{
+    display:none;
+    visibility:none;
+}
+
+#cdisplay {
+    width:100px;
+}
+}
+
+@media (max-width: 500px) {
+
+#comment_form{
+    display:none;
+    visibility:none;
+}
+
+table td:nth-child(3),
+table th:nth-child(3) { display: none; }
+
+table td:nth-child(4),
+table th:nth-child(4) { display: none; }
+
+table td:nth-child(5),
+table th:nth-child(5) { display: none; }
+
+#cdisplay {
+    width:200px;
+}
+}
+</style>

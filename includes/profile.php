@@ -40,7 +40,7 @@ if (isset($_SESSION['username'])) {
   		<div><h1>PROFILE</h1></div>
     </div>
 <hr>
-<div class="container col-lg-3" style="float:left; margin-left:10%;">
+<div class="container col-lg-3" style="margin-right:70%;">
 
 <div class=" float-lg-left"><!--left col-->
               
@@ -57,37 +57,8 @@ if (isset($_SESSION['username'])) {
           
 </div> 
 </div> 
-
-    
-
-    
-    <script>
-            $(document).ready(function() {
-
-    
-            var readURL = function(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('.avatar').attr('src', e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-
-            $(".file-upload").on('change', function(){
-                readURL(this);
-            });
-            });
-    </script>
-
-<div class="row">
-          
-         
-          </div>
+<div class="container">
+        <div class="row">
           <div class="col-lg-10">
             <div class="card card-stats">
               <div class="card-body ">
@@ -126,3 +97,29 @@ if (isset($_SESSION['username'])) {
             </div>
           </div>
         </div>
+</div>
+
+
+            
+    <script>
+            $(document).ready(function() {
+
+    
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.avatar').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+
+            $(".file-upload").on('change', function(){
+                readURL(this);
+            });
+            });
+    </script>

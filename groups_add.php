@@ -2,30 +2,44 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
 <?php
-if (!isset($_SESSION['username'])) {
+   if (!isset($_SESSION['username'])) {
     header("Location: login.php");
-}
+   }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   ADMIN HOMEPAGE
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" /> -->
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <!-- Sidebar Navigation -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <title>Admin</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
-    
+   <!-- GOOGLE CHARTS -->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
-<body>
 
-<?php include "includes/admin_navigation.php"; ?>
+<body class="">
+  <div class="wrapper ">
+    
+  <?php include "includes/admin_navigation.php"; ?>
 
 
 <?php
@@ -119,10 +133,15 @@ if($_SESSION['user_id'] == $admin_id){
 
 if(isset($_POST['delete_members'])){
     $friend_username = $_POST['friend'];
+
+$query_dcheck = "SELECT * FROM liability WHERE user_name = '{$friend_username}' AND group_id = {$group_id} AND status = 'pending' ";
+$result_query_dcheck = mysqli_query($connection,$query_dcheck);
+$count_check = mysqli_num_rows($result_query_dcheck);
+    if(!$count_check){
+
     $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']}";
                     $select_friends = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_assoc($select_friends)) {
-                
                         $username            = $row['username'];
                         if($username == $friend_username){
                             $query2 = "SELECT * FROM groups WHERE group_id = {$group_id} ";
@@ -145,6 +164,7 @@ if(isset($_POST['delete_members'])){
                     if(!$select_friends){
                         die("ERROR_1 ".mysqli_error($connection));
                     }
+    }
 }
 
 }
@@ -383,7 +403,7 @@ if(isset($_POST['delete_members'])){
         });
 
 </script>
-<!--  --><div id="js"><h3><b><i>NO OPTION SELECTED</i></b></h3></div>
+<!--  --><div id="js"><h6><b><i>NO OPTION SELECTED</i></b></h3></div>
 
                 </div>
             </div></span>

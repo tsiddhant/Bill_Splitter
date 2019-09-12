@@ -66,6 +66,7 @@ error_reporting(0);
 $username = $_SESSION['username'];
 if (isset($_POST['change'])) {
 	$password = $_POST['password'];
+	$password = password_hash($password, PASSWORD_DEFAULT);
 	echo "<script type='text/javascript'>alert('password updated')</script>";
 	$query = "UPDATE users SET password = '{$password}' WHERE username = '{$username}' ";
 	$result = mysqli_query($connection, $query);

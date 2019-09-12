@@ -98,13 +98,26 @@
 
     if (isset($_GET['delete'])) {
         $the_user_id = ($_GET['delete']);
-
-        $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
-        $delete_user_query = mysqli_query($connection, $query);
-        if (!$delete_user_query) {
-            die("ERROR!" . mysqli_error($connection));
+    $getname = "SELECT username FROM users WHERE user_id = '{$the_user_id}' ";
+    $result_getname = mysqli_query($connection,$getname);
+    $row_getname = mysqli_fetch_assoc($result_getname);
+    $name = $row_getname['username'];
+    $query_check = "SELECT * FROM liability WHERE user_name = '{$_SESSION['username']}' AND pay_to = '{$name}' ";
+    $result_check = mysqli_query($connection,$query_check);
+    $count = mysqli_num_rows($result_check);
+        if(!$count){
+            $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
+            $delete_user_query = mysqli_query($connection, $query);
+            if (!$delete_user_query) {
+                die("ERROR!" . mysqli_error($connection));
+            }
+            header("Location: friends.php");
         }
-        header("Location: friends.php");
+        else{ 
+            $message = "Payments Due";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+        }
+       
     }
 
     ?>
