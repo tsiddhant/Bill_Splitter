@@ -40,6 +40,7 @@ if (isset($_POST['user_submit'])) {
     if (strlen($password) < 4) {
         $passwordErr = "Password is Required!!(min 4 length)";
     }
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
     $username = $_POST['username'];
     $username = mysqli_real_escape_string($connection, $username);

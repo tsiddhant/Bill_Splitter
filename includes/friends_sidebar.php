@@ -133,7 +133,7 @@
 
                     <div class="well form-group">
                         <form action="" method="post">
-                            <h5 class="page-header">Send REQUESTS
+                            <h5 class="">Send REQUESTS
                                 <hr>
                             </h5>
 

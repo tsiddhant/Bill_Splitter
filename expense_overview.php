@@ -44,7 +44,7 @@
                   <tbody class="labels">
                     <tr>
                       <td colspan="5">
-                        <label for=<?php  echo $group_name; ?> ><h1><?php  echo "+$group_name"; ?></h1></label><label>&nbsp&nbsp Click name to expand</label><br><label><h6><?php  echo "$admin_username &nbsp&nbsp Created on:$date"; ?></h6></label>
+                        <label for=<?php  echo $group_name; ?> ><h1><?php  echo "+$group_name"; ?></h1></label><br><label><h6><?php  echo "$admin_username &nbsp&nbsp Created on:$date"; ?></h6></label>
                         <input type="checkbox" name="<?php  echo $group_name; ?>" id=<?php  echo $group_name; ?> data-toggle="toggle">
                       </td>
                     </tr>
@@ -98,12 +98,12 @@
               </table>
               </div>
         </div>
-        <div id="right">
+        <div id="right"  style="background-color:white">
               <!-- SIDEBAR -->
-              <div class="container">
+              <div class="container" style="background-color:white">
                 
                   <br><br>
-                  <label class='alert-heading' value=''><h3>&nbsp&nbsp&nbsp&nbsp&nbsp<u>TAGS</u></h3></label><br>
+                  <label class='alert-heading' value=''><h3>&nbsp&nbsp&nbsp&nbsp<u>TAGS</u></h3></label><br>
                   <?php $sql = "SELECT * FROM category";
                         $result_sql = mysqli_query($connection,$sql);
                       
@@ -116,19 +116,6 @@
               </div>
         </div>
     </div>
-
-<!-- SIDEBAR SCRIPT -->
-<!-- <script>
-    $(document).ready(function(){
-      if(localStorage.selected) {
-        $('#' + localStorage.selected ).attr('checked', true);
-      }
-      $('.inputabs').click(function(){
-        localStorage.setItem("selected", this.id);
-      });
-    });
-
-</script> -->
 
 
 <style>
@@ -160,12 +147,20 @@ body {
   font-family: Verdana;
   font-weight: 200;
   line-height: 1.42em;
-  color:#A7A1AE;
-  background-color:#1F2739;
+  color:red;
+  background-color:whitesmoke;
 }
 
 h1 {
   font-size:3em; 
+  font-weight: 300;
+  line-height:1em;
+  text-align: center;
+  color: #4DC3FA;
+}
+
+u {
+  font-size:1em; 
   font-weight: 300;
   line-height:1em;
   text-align: center;
@@ -190,13 +185,14 @@ h2 a {
 }
 
 .blue { color: #185875; }
-.yellow { color: #FFF842; }
+.yellow { color: #185875; }
 
 .container th h1 {
+  border-radius: 25px;
 	  font-weight: bold;
 	  font-size: 1em;
   text-align: left;
-  color: #185875;
+  color: white;
 }
 
 .container td {
@@ -208,6 +204,7 @@ h2 a {
 }
 
 .container {
+  border-radius: 25px;
 	  text-align: left;
 	  overflow: hidden;
 	  width: 80%;
@@ -223,11 +220,11 @@ h2 a {
 }
 
 .container tr:nth-child(odd) {
-	  background-color: #323C50;
+	  background-color: whitesmoke;
 }
 
 .container tr:nth-child(even) {
-	  background-color: #2C3446;
+	  background-color: white;
 }
 
 .container th {
@@ -237,14 +234,14 @@ h2 a {
 .container td:first-child { color: #FB667A; }
 
 .labels tr:hover {
-   background-color: #464A52;
+   background-color: #yellow;
 -webkit-box-shadow: 0 6px 6px -6px #0E1119;
 	   -moz-box-shadow: 0 6px 6px -6px #0E1119;
 	        box-shadow: 0 6px 6px -6px #0E1119;
 }
 
 .labels td:hover {
-  background-color: grey;
+  background-color: yellow;
   color: #403E10;
   font-weight: bold;
   

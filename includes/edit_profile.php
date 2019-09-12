@@ -21,6 +21,7 @@ if (isset($_GET['source'])) {
         $username      = ($_POST['username']);
         $user_name     = ($_POST['name']);
         $user_password = ($_POST['password']);
+        $user_password = password_hash($user_password, PASSWORD_DEFAULT);
         $user_email    = ($_POST['email']);
         $user_number   = ($_POST['number']);
         //$hashed_user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
@@ -73,7 +74,7 @@ if (isset($_GET['source'])) {
         <div class="row">
             <div class="col-lg-6 offset-sm-3">
 
-                <h1 class="page-header">
+                <h1 class="">
                     PROFILE UPDATE
                     <hr>
                 </h1>
@@ -98,7 +99,7 @@ if (isset($_GET['source'])) {
                     </div>
                     <div class="form-group">
                         <label for="post_content">Password</label>
-                        <input type="text" value="<?php echo $user_password; ?>" class="form-control" name="password" required>
+                        <input type="text" value="" class="form-control" name="password" required>
                     </div>
                     <div class="form-group">
                         <input class="btn btn-primary btn-block" type="submit" name="edit_profile" value="Update Profile">

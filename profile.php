@@ -2,32 +2,45 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
 <?php
-if (!isset($_SESSION['username'])) {
+   if (!isset($_SESSION['username'])) {
     header("Location: login.php");
-}
+   }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   ADMIN HOMEPAGE
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <!-- Sidebar Navigation -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <title>Admin</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <!-- GOOGLE CHARTS -->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="css/simple-sidebar.css" rel="stylesheet">
 </head>
-<body>
 
-
-<?php include "includes/admin_navigation.php"; ?>
+<body class="">
+  <div class="wrapper ">
+    
+  <?php include "includes/admin_navigation.php"; ?>
+  
 
 <?php
 if (isset($_GET['source'])) {
@@ -45,4 +58,17 @@ switch ($source) {
 }
 ?>
 
-<?php include "includes/admin_footer.php"; ?>
+</div>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+
+        </body>
+
+        </html>
