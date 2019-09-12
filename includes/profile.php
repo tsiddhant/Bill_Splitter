@@ -1,5 +1,5 @@
 <?php
-
+// SHOW USER DATA
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
@@ -21,19 +21,19 @@ if (isset($_SESSION['username'])) {
 
   if(isset($_POST["submit"]))
  {   
-
+// DELETE PREVIOUS PHOTO
     if(file_exists($picsource)){
         unlink($picsource);
     }
 
-
+// UPLOAD NEW PHOTO
     $filename = $_FILES["uploadfile"]["name"];
     $tempname = $_FILES["uploadfile"]["tmp_name"];
     $folder = "uploaded_images/".$filename;
     move_uploaded_file($tempname,$folder);
- $query = "UPDATE users SET picsource = '{$folder}' WHERE user_id = '{$_SESSION['user_id']}' ";
+    $query = "UPDATE users SET picsource = '{$folder}' WHERE user_id = '{$_SESSION['user_id']}' ";
     $result_query = mysqli_query($connection,$query);
-  header("Location: profile.php");
+    header("Location: profile.php");
  }
 ?>
     <div class="" style="">
@@ -42,7 +42,7 @@ if (isset($_SESSION['username'])) {
 <hr>
 <div class="container col-lg-3" style="margin-right:70%;">
 
-<div class=" float-lg-left"><!--left col-->
+<div class=" float-lg-left">
               
 
       <div class="text-center">
@@ -100,7 +100,7 @@ if (isset($_SESSION['username'])) {
 </div>
 
 
-            
+<!-- Javascript to load file on browsing  -->
     <script>
             $(document).ready(function() {
 

@@ -1,47 +1,8 @@
 <?php include "includes/db.php"; ?>
-<?php ob_start(); ?>
-<?php session_start(); ?>
-<?php
-   if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-   }
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-   ADMIN HOMEPAGE
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" /> -->
-
-  <!-- Sidebar Navigation -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-   <!-- GOOGLE CHARTS -->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-</head>
-
-<body class="">
-  <div class="wrapper ">
-    
-  <?php include "includes/admin_navigation.php"; ?>
-
-
+<?php include "includes/new_admin_header.php"; ?>
+<?php include "includes/admin_navigation.php"; ?>
+<link rel="stylesheet" href="groups_add.css">
+<!-- QUERY TO SHOW GROUP NAME AND STATUS -->
 <?php
  $query = "SELECT * FROM groups WHERE group_id = {$_GET['source']} ";
  $result = mysqli_query($connection, $query);
@@ -58,7 +19,8 @@
 <div class="col-lg-12 text-center"><span class="text-center"><h6>*<?php echo $status ?></h6></span></div>
 </div>
 
-<?php if($_SESSION['user_id'] == $admin_id){ ?>
+<?php 
+if($_SESSION['user_id'] == $admin_id){ ?>
     <div class="d-inline">
             <button name="button" class="btn btn-primary" id="0">Add Members</button>
             <br><br>
@@ -73,7 +35,7 @@
 <?php } ?>
 
 <?php
-
+// ADDING MEMBERS INTO YOUR GROUP(ONLY IF THEY ARE YOUR FRIEND)
 if($_SESSION['user_id'] == $admin_id){
 
 if(isset($_POST['add_members'])){
@@ -115,7 +77,8 @@ if(isset($_POST['add_members'])){
 
 
 ?>
-<?php if($_SESSION['user_id'] == $admin_id){ ?>
+<?php 
+if($_SESSION['user_id'] == $admin_id){ ?>
             <button name="button" class="btn btn-primary" id="-1">Delete Members</button>
             <br><br>
             <form  id="delete" class="col-lg-8" action="" method="post">
@@ -128,7 +91,7 @@ if(isset($_POST['add_members'])){
 <?php } ?>
 
 <?php
-
+// DELETING MEMBERS FROM GROUP(ONLY IF THEY ARE YOUR FRIEND)
 if($_SESSION['user_id'] == $admin_id){
 
 if(isset($_POST['delete_members'])){
@@ -171,7 +134,7 @@ $count_check = mysqli_num_rows($result_query_dcheck);
 
 
 ?>
-
+<!-- ADDING NEW EXPENSES FORM IN GROUP -->
 <button name="group" class="btn btn-primary" id="1">Add Expense</button>
 <br><br>
 
@@ -244,7 +207,7 @@ $count_check = mysqli_num_rows($result_query_dcheck);
                     <span class="d-inline-block">
                         <div class="wrapper">
                         
-                            
+            <!-- CURRENCY SELECTOR TYPE -->
                             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon currency-symbol">$</div>
                             <input type="text" class="form-control currency-amount" id="inlineFormInputGroup" placeholder="0.00" size="5" name="money" value="<?php echo isset($_POST['money']) ? $_POST['money'] : '' ?>" required>
@@ -359,7 +322,7 @@ $count_check = mysqli_num_rows($result_query_dcheck);
             </div></span>
             
 
-
+<!-- FORM 2 SHOWING SPLIT TYPE -->
            
             <span><div class="container" >
                 <div class="jumbotron" id="new2">
@@ -379,7 +342,7 @@ $count_check = mysqli_num_rows($result_query_dcheck);
             <span><div class="container" >
                 <div class="jumbotron" id="new3">
                     <div>
-
+<!-- SHOWING SELECTED MEMBERS FROM FORM 1 INTO FORM 3 USING JQUERY AND AJAX -->
 <script>
     var i;
         $(document).ready(function() {
@@ -412,38 +375,7 @@ $count_check = mysqli_num_rows($result_query_dcheck);
 
         </form></span>
     </div>
-
-
-<style>
-
-.currency-selector {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  padding-left: .5rem;
-  border: 0;
-  background: transparent;
-  margin-top: -5%;
-
-}
-
-.currency-symbol {
-    margin-left: .4em;
-}
-
-.currency-amount {
-    margin-top: -3%;
-}
-
-.currency-addon {
-  width: 4em;
-  text-align: left;
-  position: relative;
-}
- 
-</style>
+<!-- SCRIPT FUNCTIONS TO SHOW AND HIDE (TOGGLE) FORMS ON BUTTON CLICK -->
 
 <script>   
 $(document).ready(function(){
@@ -634,7 +566,7 @@ $flag2=0;
             
         }
         else{
-         
+///////////////PER PERSON EQUAL BILL SPLITTED AND STORED QUERY
 
             if(isset($_POST["select"]))
             foreach ($_POST['select'] as $member){
@@ -690,13 +622,13 @@ while($row_merge = mysqli_fetch_assoc($result_merge_query)){
 
 
 if(isset($_POST["add_expense"]))  {
-        ///////////////////DELETE LIABILITY FIELDS WITH SAME USERNAME AND PAID TO
+///////////////////DELETE LIABILITY FIELDS WITH SAME USERNAME AND PAID TO
         $delete_query = "DELETE FROM liability WHERE user_name = '{$_POST['select2']}' AND pay_to = '{$_POST['select2']}' ";
         $result_delete_query = mysqli_query($connection,$delete_query);
         if(!$result_delete_query){
             die("ERROR IN DELETING".mysqli_error($connection));
         }
-        ///////////////////
+///////////////////
 
     }
 ?>

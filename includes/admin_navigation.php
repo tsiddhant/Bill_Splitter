@@ -1,3 +1,4 @@
+<!-- NAVIGATION PANEL -->
 <div class="d-flex" id="wrapper">
 
 

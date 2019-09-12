@@ -1,7 +1,9 @@
+<?php include "includes/db.php"; ?>
 <?php include "includes/header.php"; ?>
 <?php include "includes/navigation.php"; ?>
-<?php include "includes/db.php"; ?>
+<link rel="stylesheet" href="register.css">
 
+<!-- NEW USER VALIDATION -->
 <?php
 $username = $name = $number = $email = $password = "";
 $usernameErr = $nameErr = $numberErr = $emailErr = $passwordErr = "";
@@ -72,7 +74,7 @@ function test_input($data)
 ?>
 
 
-
+<!-- NEW USER REGISTRATION FORM -->
     <div class="container table-bordered ">
         <h1 style="margin-left:13%;">REGISTER NEW USER</h1>
         <hr>
@@ -122,36 +124,5 @@ function test_input($data)
             </form>
         </div>
     </div>
-
-
-
-<style>
-    .container { 
-        background: teal;
-        color: white;
-      margin:auto;
-      width: 500px; 
-      padding-top: 70px;
-    }
-    form {
-        background: teal;
-        color: white;
-        margin:auto;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px; 
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 10px;
-    }
-    .btn {
-        margin: auto 125px;
-        border-style: outset;
-    }
-    body {
-    
-	font-family: roboto;
-}
-</style>
 
 <?php include "includes/footer.php"; ?>

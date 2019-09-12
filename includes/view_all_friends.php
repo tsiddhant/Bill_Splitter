@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-hover">
-
+<!-- QUERY TO SHOW ALL FRIENDS WITH USER -->
                     <?php
 
                     $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']}";
@@ -40,6 +40,7 @@
                 </tbody>
             </table>
         </div>
+<!-- QUERY TO SHOW EXPENSES DUE WITH THE PARTICULAR FRIEND SELECTED -->
 <?php      if(isset($_GET['view'])){   ?>
         <h2 class="mt-4 align-content-center">Friend Expense</h2>
         <div class="table-responsive">
@@ -93,7 +94,7 @@
                         <?php    }    ?>
 
     </div>
-
+<!-- QUERY TO DELETE THAT FRIEND WITH NO PAYMENTS DUE LEFT -->
     <?php
 
     if (isset($_GET['delete'])) {

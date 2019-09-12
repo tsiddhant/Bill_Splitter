@@ -8,7 +8,7 @@
                     <br><br>
 
                     <br><br>
-
+<!-- SHOWING ALL FRIEND REQUESTS FOR THE USER -->
                     <div class="well form-group">
                         <h5>FRIEND REQUESTS
                             <hr>
@@ -41,7 +41,7 @@
 
                     <br><br>
 
-
+<!-- QUERY FOR SENDING FRIEND REQUESTS TO VALID USERNAMES -->
                     <?php
                     $usernameErr = '';
                     if (isset($_POST['request_friend'])) {
@@ -90,26 +90,8 @@
                             }
                         }
 
-
+// SENDING MAIL FOR FRIEND REQUEST
                         if (!empty($usernameErr)) {
-
-                            // $query = "SELECT * FROM users WHERE username = '{$friend_id}' ";
-                            // $select_user_profile_query = mysqli_query($connection, $query);
-                            // while ($row = mysqli_fetch_array($select_user_profile_query)) {
-                            //     $user_id = $row['user_id'];
-                            //     $username = $row['username'];
-                            //     $user_name = $row['name'];
-                            //     $user_email = $row['email'];
-                            //     $user_number = $row['number'];
-                            // }
-
-
-                            // $to = $user_email;
-                            // $subject = "Friend Request";
-                            // $body = "You have a new friend request from : {$_SESSION['user_id']}.";
-
-                            // if (mail($to, $subject, $body)) {
-                            //     echo ("Email send!");
 
                             $text = "You have received a new friend request from $username. Login now to accept it.";
                             $subject = "Bill_Splitter : New Friend Request";
@@ -156,7 +138,7 @@
     </div>
 </div>
 
-
+<!-- QUERY TO ACCEPT AND REJECT FRIEND REQUESTS -->
 <?php
 if (isset($_GET['accept'])) {
     $user_id = $_GET['accept'];

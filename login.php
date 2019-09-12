@@ -1,5 +1,6 @@
 <?php include "includes/header.php"; ?>
 <?php include "includes/navigation.php"; ?>
+<link rel="stylesheet" href="login.css">
 
 
 <div class="container login-form">     
@@ -31,70 +32,4 @@
         </form>         
     </div>
 
-
-<style>
-    .container {
-      width: 100%;
-      padding-top: 70px;
-    }
-    
-    .login-form {
-		width: 340px;
-    	margin: 25px auto;
-	}
-    .login-form form {
-        background:  teal;
-        color: white;
-    	margin-bottom: 15px;
-      
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-        border-style: outset;
-    }
-    .login-btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
-    body {
-	font-family: roboto;
-}
-    
-  
-     
-    .login-btn {        
-            font-size: 15px;
-            font-weight: bold;
-    }
-    .or-seperator {
-        margin: 20px 0 10px;
-        text-align: center;
-        border-top: 1px solid #ccc;
-    }
-    .or-seperator i {
-        color: #2c3e50;
-        padding: 0 10px;
-        background: #f7f7f7;
-        position: relative;
-        top: -11px;
-        z-index: 1;
-    }
-     
-    .social-btn .btn {
-        margin: 10px 0;
-        font-size: 15px;
-        text-align: left; 
-        line-height: 24px;       
-    }
-    .social-btn .btn i {
-		float: left;
-		margin: 4px 15px  0 5px;
-        min-width: 15px;
-	}
-  
-</style>
-
-    <?php include "includes/footer.php"; ?>
+<?php include "includes/footer.php"; ?>

@@ -1,51 +1,12 @@
 <?php include "includes/db.php"; ?>
-<?php ob_start(); ?>
-<?php session_start(); ?>
-<?php
-   if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-   }
-?>
+<?php include "includes/new_admin_header.php"; ?> 
+<?php include "includes/admin_navigation.php"; ?>
+<link rel="stylesheet" href="groups.css">
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-   ADMIN HOMEPAGE
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-
-  <!-- Sidebar Navigation -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-   <!-- GOOGLE CHARTS -->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-</head>
-
-<body class="">
-  <div class="wrapper ">
-    
-  <?php include "includes/admin_navigation.php"; ?>
-
-
+<!-- ADDING NEW GROUP FOR ADMIN -->
 <br>
 <button name="group" class="btn btn-primary" id="1">Add Group</button>
-
-<br><br>
+<br>
 <form id="group" class="col-lg-4" action="" method="post">
 <div class="container jumbotron" id="new">
     <label for="group">Type Group Name : </label>
@@ -55,7 +16,7 @@
  
 </div>
 </form>
-
+<!-- INSERTING NEW GROUP IN DATABASE -->
 <?php
 if(isset($_POST['add_group'])){
     $group_name     = $_POST['group_name'];
@@ -71,23 +32,7 @@ if(isset($_POST['add_group'])){
 }
 ?>
 
-
-
-<style>
-#group {
-    display: none;
-}
- 
-</style>
-<script>   
-$(document).ready(function(){
-  $("#1").click(function(){
-    $("#group").toggle(400);
-  });
-});
-</script>
-
-
+<!-- SHOWING ALL GROUPS WITH USER AS MEMBER OR ADMIN -->
 <div class="embed-responsive col-lg-8" style="margin:auto; height:300px;">
             <table class="table table-borderless rounded table-hover table-warning">
                 <thead>
@@ -131,7 +76,7 @@ $(document).ready(function(){
                 </tbody>
             </table>
         </div>
-
+<!-- QUERY TO DELETE A GROUP -->
         <?php
         if (isset($_GET['delete'])) {
             $the_user_id = ($_GET['delete']);
@@ -153,7 +98,6 @@ $(document).ready(function(){
       $the_group_id = $_GET['comment'];
 
             if (isset($_POST['create_comment'])) {
-                // $comment_author = $_POST['comment_author'];
                 $comment_content = $_POST['content'];
                 if (!empty($comment_content)) {
                     $query = "INSERT INTO comments (comment_group_id, comment_author, comment_content)";
@@ -212,8 +156,8 @@ $(document).ready(function(){
 
             ?>
 
+        <!-- Comment -->
         <div class="overflow-auto" id="cdisplay" style="height:300px; width:400px;">
-            <!-- Comment -->
             <div class="media float-lg-left" style="margin-left:5px;" id="here">
                 <a class="pull-left">
                 <i class="fa fa-comments" aria-hidden="true" style="font-size:25px;"></i>
@@ -231,41 +175,4 @@ $(document).ready(function(){
             </div>
 <?php  } ?>
 
-
-
 <?php include "includes/admin_footer.php"; ?>
-
-<style>
-@media (max-width: 1100px) {
-
-#comment_form{
-    display:none;
-    visibility:none;
-}
-
-#cdisplay {
-    width:100px;
-}
-}
-
-@media (max-width: 500px) {
-
-#comment_form{
-    display:none;
-    visibility:none;
-}
-
-table td:nth-child(3),
-table th:nth-child(3) { display: none; }
-
-table td:nth-child(4),
-table th:nth-child(4) { display: none; }
-
-table td:nth-child(5),
-table th:nth-child(5) { display: none; }
-
-#cdisplay {
-    width:200px;
-}
-}
-</style>

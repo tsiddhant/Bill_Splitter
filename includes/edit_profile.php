@@ -1,5 +1,5 @@
 <?php
-
+// SHOW PREVIOUS DETAILS
 if (isset($_GET['source'])) {
 
     $query = "SELECT * FROM users WHERE user_id = {$_SESSION['user_id']} ";
@@ -15,7 +15,7 @@ if (isset($_GET['source'])) {
 
     ?>
 <?php
-
+// UPDATE NEW DETAILS
     if (isset($_POST['edit_profile'])) {
 
         $username      = ($_POST['username']);
@@ -24,7 +24,7 @@ if (isset($_GET['source'])) {
         $user_password = password_hash($user_password, PASSWORD_DEFAULT);
         $user_email    = ($_POST['email']);
         $user_number   = ($_POST['number']);
-        //$hashed_user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+// CHECK IF OLD PASSWORD IS SAME AS NEW
         if (!empty($user_password)) {
 
             $query_password = "SELECT password FROM users WHERE user_id =  {$_SESSION['user_id']}";
@@ -38,7 +38,6 @@ if (isset($_GET['source'])) {
 
             if ($db_user_password != $user_password) {
                 echo "PASSWORD CHANGED!!";
-                //$hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
             }
 
             $query = "UPDATE users SET ";
@@ -70,7 +69,6 @@ if (isset($_GET['source'])) {
 
     <div class="container-fluid">
 
-        <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-6 offset-sm-3">
 
@@ -87,7 +85,7 @@ if (isset($_GET['source'])) {
 
                     <div class="form-group">
                         <label for="post_tags">Username</label>
-                        <input type="text" value="<?php echo $username; ?>" class="form-control" name="username" required>
+                        <input type="text" value="<?php echo $username; ?>" class="form-control" name="username" required disabled>
                     </div>
                     <div class="form-group">
                         <label for="post_content">Email</label>
@@ -108,8 +106,7 @@ if (isset($_GET['source'])) {
                 </form>
             </div>
         </div>
-        <!-- /.row -->
+      
     </div>
-    <!-- /.container-fluid -->
+  
 </div>
-<!-- /#page-wrapper -->

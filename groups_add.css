@@ -1,0 +1,27 @@
+
+.currency-selector {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: .5rem;
+  border: 0;
+  background: transparent;
+  margin-top: -5%;
+
+}
+
+.currency-symbol {
+    margin-left: .4em;
+}
+
+.currency-amount {
+    margin-top: -3%;
+}
+
+.currency-addon {
+  width: 4em;
+  text-align: left;
+  position: relative;
+}
