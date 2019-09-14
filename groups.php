@@ -8,12 +8,10 @@
 <button name="group" class="btn btn-primary" id="1">Add Group</button>
 <br>
 <form id="group" class="col-lg-4" action="" method="post">
-<div class="container jumbotron" id="new">
+<div class="container" id="new">
     <label for="group">Type Group Name : </label>
     <input type="text" class="form-control" placeholder="ENTER GROUP NAME" name="group_name">
-    <hr>
     <input type="submit" class="btn btn-primary" name="add_group" value="SUBMIT">
- 
 </div>
 </form>
 <!-- INSERTING NEW GROUP IN DATABASE -->
@@ -148,6 +146,9 @@ if(isset($_POST['add_group'])){
             {
                 die('Query Failed' . mysqli_error($connection));
             }
+        ?>
+        <div class="" id="cdisplay" style="overflow:scroll; height:300px; width:500px;">
+        <?php
             while ($row = mysqli_fetch_array($select_comment_query)) {
             $comment_date   = $row['comment_date']; 
             $comment_content= $row['comment_content'];
@@ -157,7 +158,7 @@ if(isset($_POST['add_group'])){
             ?>
 
         <!-- Comment -->
-        <div class="overflow-auto" id="cdisplay" style="height:300px; width:400px;">
+        
             <div class="media float-lg-left" style="margin-left:5px;" id="here">
                 <a class="pull-left">
                 <i class="fa fa-comments" aria-hidden="true" style="font-size:25px;"></i>
@@ -170,7 +171,6 @@ if(isset($_POST['add_group'])){
                     <?php echo $comment_content;?><br><br>
                 </div>
             </div>
-            
             <?php } ?>
             </div>
 <?php  } ?>

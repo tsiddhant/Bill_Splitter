@@ -13,14 +13,8 @@
               <h2><?php echo $_SESSION['name'];?></h2><h2><?php  if(isset($_GET['value'])) echo $_GET['value']; ?></h2>
 <!-- AJAX SEARCH -->
             <div class="col-lg-4">
-                <div class="card-body ">
-                  <div class="row">
-                    <div class="col-md-12">
                     <input type="text" oninput = "pass_data()" name="expense_description" id="expense_description" placeholder="Search by Description name" class="btn btn-primary" style="margin-left:25%;" >
-                    </div>
-                  </div>
-                </div>  
-            </div>
+            </div><br>
 <!-- END -->
               
               <table id="example" class="display container" cellspacing="0" width="100%">
@@ -103,12 +97,7 @@
         </div>
         <div id="right"  style="background-color:white">
 <!-- SIDEBAR FOR TAGS -->
- 
-            <div class="col-lg-12">
-              <div class="card card-stats">
-                <div class="card-body ">
-                  <div class="row">
-                    <div class="col-md-12">
+<div class="sidenav">
                           <label class='alert-heading' value=''><h3><u>TAGS</u></h3></label><br>
                           <?php $sql = "SELECT * FROM category";
                                 $result_sql = mysqli_query($connection,$sql);
@@ -119,12 +108,8 @@
                                 
                                 }
                           ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>    
-    </div>
+
+</div>
 
 
 <?php include "includes/admin_footer.php"; ?>

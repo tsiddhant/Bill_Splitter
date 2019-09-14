@@ -13,6 +13,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-hover">
+
 <!-- QUERY TO SHOW ALL FRIENDS WITH USER -->
                     <?php
 
@@ -65,7 +66,7 @@
 
 
 
-            $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.status = 'pending' AND l.pay_to = '{$_SESSION['username']}' UNION SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.pay_to = '$user__name' AND l.status = 'pending' AND l.user_name = '{$_SESSION['username']}' ";                    
+            $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.status = 'pending' AND l.pay_to = '{$_SESSION['username']}' ";                    
             $select_expense = mysqli_query($connection, $query9);
                             while ($row = mysqli_fetch_assoc($select_expense)) {
                             
@@ -82,7 +83,7 @@
                                 echo "<td>$paid_by</td>";
                                 echo "<td>$amountdue</td>";
                                 echo "<td>$date</td>";
-                                echo "<td><a href='friends.php?pay=$id'><input type='button' class='btn btn-primary' name='pay' value='PAY'></a></td>";
+                                echo "<td><a href='friends.php?pay=$id'><input type='button' id='myBtn' class='btn btn-primary' name='pay' value='PAY'></a></td>";
                                 echo "</tr>";
                             }
         
@@ -107,7 +108,7 @@
     $result_check = mysqli_query($connection,$query_check);
     $count = mysqli_num_rows($result_check);
         if(!$count){
-            $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']}";
+            $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']} || user1_id = {$the_user_id} AND user2_id = {$_SESSION['user_id']}";
             $delete_user_query = mysqli_query($connection, $query);
             if (!$delete_user_query) {
                 die("ERROR!" . mysqli_error($connection));
@@ -122,3 +123,75 @@
     }
 
     ?>
+
+
+<!-- PAYMENT GATEWAY -->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content col-lg-4">
+    <span class="close">&times;</span>
+    <div class="wait alert-warning">
+            <strong>Wait!</strong> Payment Being Processed.
+        </div>
+        <script>
+            $(document).ready(function(){
+                $(".wait").fadeOut(3000);
+            });
+        </script>
+
+    <div class="alert alert-success">
+            <strong>Success!</strong> Payment Settled Up.
+        </div>
+        <script>
+            $(document).ready(function(){
+                $(".alert").fadeIn(5000);
+            });
+        </script>
+  </div>
+    <?php sleep(2); ?>
+    <?php
+        
+        if (isset($_GET['pay'])) {
+            $the_user_id_pay = ($_GET['pay']);
+            $query_pay = "UPDATE liability SET status = 'paid' WHERE liability_id = '{$the_user_id_pay}' ";
+            $result_query_pay = mysqli_query($connection,$query_pay);
+            $num_rows = mysqli_num_rows($result_query_pay);
+            if($num_rows){
+                $payment = "PAYMENT CONFIRMED!!";
+            }
+        }
+    ?>
+
+</div> 
+
+
+<script>
+    // modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    } 
+
+</script>

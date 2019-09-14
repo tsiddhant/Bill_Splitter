@@ -74,7 +74,7 @@
                             if ($user_id == $row['user1_id'] || $user_id == $row['user2_id']) {
                                 $usernameErr = "";
                                 echo "<script>
-                                    alert('Already Friend!');
+                                    alert('!!! INVALID or ALREADY FRIEND !!!');
                                     </script>";
                             }
                         }
@@ -85,7 +85,7 @@
                             if ($user_id == $row['user1_id'] || $user_id == $row['user2_id']) {
                                 $usernameErr = "";
                                 echo "<script>
-                                    alert('Already Requested!');
+                                    alert('!!! ALREADY REQUESTED !!!');
                                     </script>";
                             }
                         }
@@ -93,10 +93,13 @@
 // SENDING MAIL FOR FRIEND REQUEST
                         if (!empty($usernameErr)) {
 
-                            $text = "You have received a new friend request from $username. Login now to accept it.";
+                            $text = "You have received a new friend request from {$_SESSION['username']}. Login now to accept it.";
                             $subject = "Bill_Splitter : New Friend Request";
-                            $mail_status = sendmail($_SESSION['email'], $username, $subject, $text);
+                            $mail_status = sendmail($user_email, $username, $subject, $text);
                             if($mail_status){
+                                echo "<script>
+                                    alert('!!! REQUEST SEND !!!');
+                                    </script>";
                                 $query = "INSERT INTO friend_request (`user1_id`, `user2_id`, `status`) ";
                                 $query .= "VALUES ('{$_SESSION['user_id']}', '{$user_id}', 'pending') ";
                                 $result_query = mysqli_query($connection, $query);
@@ -105,7 +108,7 @@
                             if (!$result_query) {
                                 die("ERROR IN SENDING MAIL!!" . mysqli_error($connection));
                             }
-                        header("Location: friends.php");
+                        // header("Location: friends.php");
                         }
                         
                     }
@@ -141,6 +144,23 @@
 <!-- QUERY TO ACCEPT AND REJECT FRIEND REQUESTS -->
 <?php
 if (isset($_GET['accept'])) {
+    $user_id = $_GET['accept'];
+
+    $query = "SELECT * FROM users WHERE user_id = '{$user_id}' ";
+    $select_user_profile_query = mysqli_query($connection, $query);
+    while ($row = mysqli_fetch_array($select_user_profile_query)) {
+        $username = $row['username'];
+        $user_name = $row['name'];
+        $user_email = $row['email'];
+        $user_number = $row['number'];
+    }
+
+
+
+    $text = "Friend request accepted by {$_SESSION['username']}.";
+    $subject = "Bill_Splitter : Friend Request Accepted";
+    $mail_status = sendmail($user_email, $username, $subject, $text);
+
     $user_id = $_GET['accept'];
     $query = "INSERT INTO friends(`user1_id`, `user2_id`, `date`) VALUES ({$user_id},{$_SESSION['user_id']},now())";
     $result_query = mysqli_query($connection, $query);

@@ -11,6 +11,7 @@
 
 #cdisplay {
     width:100px;
+    height: 400px;
 }
 }
 
@@ -32,5 +33,6 @@ table th:nth-child(5) { display: none; }
 
 #cdisplay {
     width:200px;
+    height: 200px;
 }
 }

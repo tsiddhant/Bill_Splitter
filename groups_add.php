@@ -25,8 +25,6 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" /> -->
-
   <!-- Sidebar Navigation -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

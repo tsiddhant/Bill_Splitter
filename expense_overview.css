@@ -1,25 +1,26 @@
 
 
-        #left {
-            display: table-cell;
-            vertical-align: top;
-            width: 80%;
-            float: left;
-            margin-right:0;
-        }
-        #right {
-            display: table-cell;
-            margin-top: 15%;
-            float: right;
-            width: 20%;
-            background-color: black;
-            border-radius: 20px;
-            text-emphasis-color: white;
-        }
+#left {
+    display: table-cell;
+    vertical-align: top;
+    width: 80%;
+    float: left;
+    margin-right:0;
+}
+#right {
+    display: table-cell;
+    margin-top: 15%;
+    float: right;
+    width: 20%;
+    background-color: black;
+    border-radius: 20px;
+    text-emphasis-color: white;
+}
 
 h1 {
   font-size:3em; 
   font-weight: 300;
+  margin: auto;
   line-height:1em;
   text-align: center;
   color: #4DC3FA;
@@ -37,10 +38,21 @@ h2 {
   font-size:2em; 
   font-weight: 300;
   text-align: center;
+  margin: auto;
   display: block;
   line-height:1em;
   padding-bottom: 2em;
   color: #FB667A;
+}
+
+#expense_description {
+  font-size:1em; 
+  font-weight: 500;
+  text-align: center;
+  margin: auto;
+  display: block;
+  line-height:1em;
+  padding-bottom: 2em;
 }
 
 h2 a {
@@ -124,9 +136,6 @@ h2 a {
 .container td:nth-child(5),
 .container th:nth-child(5) { display: none; }
 
-#expense_description{
-    display:none;
-}
 #head{
     display:none;
 }
@@ -135,4 +144,52 @@ h2 a {
 
 [data-toggle="toggle"] {
 	display: none;
+}
+
+
+/* SIDEBAR OF TAGS */
+.sidenav {
+  text-align: center;
+  float: right;
+  width: 240px;
+  height: 600px;
+  position: relative;
+  z-index: 1;
+  padding: 8px;
+  right: 10px;
+  background:white;
+  border: 3px solid #000;
+  overflow-x: hidden;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+.main {
+  margin-right: 50px; /* Same width as the sidebar + left position in px */
+  font-size: 15px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media (max-width: 1000px) {
+
+    .sidenav{
+      display:none;
+      visibility: hidden;
+    }
+    #expense_description{
+      display:none;
+    }
+    .main{
+      margin-right:0px;
+    }
 }

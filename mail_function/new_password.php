@@ -1,43 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-
 	<title>Reset Password</title>
-
 	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="otp_page.css">
 	<link href="../css/simple-sidebar.css" rel="stylesheet">
-
 </head>
-
 <body>
-
-	<div class="d-flex" id="wrapper">
-
-
-		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading">RESET PASSWORD<br></div>
-			<div class="list-group list-group-flush">
-			</div>
-		</div>
-
-		<div id="page-content-wrapper">
-
-			<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"><br><br>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				</div>
-			</nav>
-
-			<div class="container jumbotron">
-				<div id="page-wrapper">
-					<div class="col-lg-4 offset-sm-3">
-						<form action="" method="post">
+<div class="testbox">
+						<form action="" method="post" class="col-lg-12">
 							<div>
 								<h3 align: center;>Otp verified successfully</h3>
 								<br><br>
@@ -50,11 +25,7 @@
 								<input type="submit" id="submit" class="btn btn-primary btn-block" value="Change Password" name="change" required="">
 							</div>
 						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+</div>
 </body>
 </html>
 
