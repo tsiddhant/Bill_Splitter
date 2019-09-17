@@ -46,8 +46,19 @@ if(isset($_POST['add_group'])){
                 </thead>
                 <tbody class="table-hover">
 
+
+
                     <?php
-                    $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['username']}%' OR admin_username LIKE '%{$_SESSION['username']}%' ";
+                    $limit = 5;  
+                    if (isset($_GET["page"])) {
+                        $page  = $_GET["page"]; 
+                        } 
+                        else{ 
+                        $page=1;
+                        };  
+                    $start_from = ($page-1) * $limit;
+
+                    $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['username']}%' OR admin_username LIKE '%{$_SESSION['username']}%' LIMIT $start_from, $limit";
                     $result = mysqli_query($connection, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -73,6 +84,20 @@ if(isset($_POST['add_group'])){
 
                 </tbody>
             </table>
+
+            <?php  
+                $result_db = mysqli_query($connection,"SELECT COUNT(user_id) FROM users"); 
+                $row_db = mysqli_fetch_row($result_db);  
+                $total_records = $row_db[0];  
+                $total_pages = ceil($total_records / $limit); 
+                /* echo  $total_pages; */
+                $pagLink = "<ul class='pagination'>";  
+                for ($i=1; $i<=$total_pages; $i++) {
+                            $pagLink .= "<li class='page-item'><a class='page-link' href='groups.php?page=".$i."'>".$i."</a></li>";	
+                }
+                echo $pagLink . "</ul>";  
+            ?>
+
         </div>
 <!-- QUERY TO DELETE A GROUP -->
         <?php

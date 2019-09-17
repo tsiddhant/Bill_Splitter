@@ -16,8 +16,16 @@
 
 <!-- QUERY TO SHOW ALL FRIENDS WITH USER -->
                     <?php
+                    $limit = 5;  
+                    if (isset($_GET["page"])) {
+                        $page  = $_GET["page"]; 
+                        } 
+                        else{ 
+                        $page=1;
+                        };  
+                    $start_from = ($page-1) * $limit;
 
-                    $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']}";
+                    $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']} LIMIT $start_from, $limit";
                     $select_friends = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_assoc($select_friends)) {
                         $user_id             = $row['user_id'];
@@ -40,6 +48,18 @@
 
                 </tbody>
             </table>
+            <?php  
+                $result_db = mysqli_query($connection,"SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']} "); 
+                $row_db = mysqli_fetch_row($result_db);  
+                $total_records = $row_db[0];  
+                $total_pages = ceil($total_records / $limit); 
+                /* echo  $total_pages; */
+                $pagLink = "<ul class='pagination'>";  
+                for ($i=1; $i<=$total_pages; $i++) {
+                            $pagLink .= "<li class='page-item'><a class='page-link' href='friends.php?page=".$i."'>".$i."</a></li>";	
+                }
+                echo $pagLink . "</ul>";  
+            ?>
         </div>
 <!-- QUERY TO SHOW EXPENSES DUE WITH THE PARTICULAR FRIEND SELECTED -->
 <?php      if(isset($_GET['view'])){   ?>
@@ -137,7 +157,8 @@
         </div>
         <script>
             $(document).ready(function(){
-                $(".wait").fadeOut(3000);
+                <?php sleep(2); ?>
+                $(".wait").fadeOut(5000);
             });
         </script>
 
@@ -146,11 +167,11 @@
         </div>
         <script>
             $(document).ready(function(){
-                $(".alert").fadeIn(5000);
+                $(".alert").fadeIn(6000);
             });
         </script>
   </div>
-    <?php sleep(2); ?>
+    
     <?php
         
         if (isset($_GET['pay'])) {

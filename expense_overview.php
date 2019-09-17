@@ -58,7 +58,7 @@
                                       $total_1            = $row_1['total_expense'];
                                       $paidby_1           = $row_1['paid_by'];
                                       $date_1             = $row_1['date'];
-                                      echo "<tr><td colspan='4'>$date_1</td></tr>";
+                                      echo "<tr><td colspan='4'><h4>$date_1</h4></td></tr>";
                                       echo "<tr>";
                                       echo "<td><h4>$i.</h4></td>";
                                       echo "<td><h4>$expense_desc_1</h4></td>";
@@ -77,7 +77,7 @@
                                       $total_1            = $row_1['total_expense'];
                                       $paidby_1           = $row_1['paid_by'];
                                       $date_1             = $row_1['date'];
-                                      echo "<tr><td colspan='4'>$date_1</td></tr>";
+                                      echo "<tr><td colspan='4'><h5>$date_1</h5></td></tr>";
                                       echo "<tr>";
                                       echo "<td><h4>$i.</h4></td>";
                                       echo "<td><h4>$expense_desc_1</h4></td>";

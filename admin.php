@@ -1,7 +1,6 @@
 <?php include "includes/db.php"; ?>
 <?php include "includes/new_admin_header.php"; ?>
 <?php include "includes/admin_navigation.php"; ?>
- 
 
       <div class="content">
         <div class="row">
@@ -201,7 +200,7 @@
                 $year_choose = $_POST['select1'];
               }
               else{
-                $year_choose = 2019;
+                $year_choose = date('Y');
               }
               
               $query2 = "SELECT SUM(total_expense) AS Sum, tags FROM expense WHERE paid_by = '{$_SESSION['username']}' AND DATE_FORMAT(date, '%Y') = '{$year_choose}' GROUP BY DATE_FORMAT(date, '%Y'),tags ORDER BY DATE_FORMAT(date, '%Y') ASC ";       
