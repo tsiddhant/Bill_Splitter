@@ -64,7 +64,7 @@ $message='';
             $folder = "uploaded_images/".$filename;
             if (move_uploaded_file($tempname, $folder)) {
                 $message = "Image uploaded successfully.(Reload to view it!!)";
-
+                // Query to update new image in database
                 $query = "UPDATE users SET picsource = '{$folder}' WHERE user_id = '{$_SESSION['user_id']}' ";
                 $result_query = mysqli_query($connection,$query);
             } else {
@@ -74,7 +74,7 @@ $message='';
  }
 ?>
     <div class="" style="">
-  		<div><h1><center>PROFILE</center></h1></div>
+  		<div><h1><center>PROFILE</center></h1></div><!-- Header -->
     </div>
 <hr>
 <div class="container col-lg-3" style="margin-right:70%;">
@@ -83,12 +83,12 @@ $message='';
               
 
       <div class="text-center">
-
+<!-- Showing Profile Image Of User -->
         <img src="<?php  echo $picsource; ?>" class="avatar img-circle img-thumbnail" alt="No image!" style="border-radius:150px;">
-    
-        <form action="" method="post" enctype="multipart/form-data">
-        <input type="file" class="text-center center-block file-upload" name = "uploadfile" value = "" required>
-        <button type="submit" value="Upload Image" name="submit">Upload Image</button>
+<!-- Form to Change User Profile Image -->
+        <form action="" method="post" enctype="multipart/form-data"><!-- Creating form -->
+        <input type="file" class="text-center center-block file-upload" name = "uploadfile" value = "" required><!-- Browse File -->
+        <button type="submit" value="Upload Image" name="submit">Upload Image</button><!-- Form Submit Button -->
         </form>
       </div><br>
           
@@ -103,24 +103,24 @@ $message='';
                  
                   <div class="col-md-12">
                     
-                        <form action="" method="post">
+                        <form action="" method="post"><!-- Profile Form -->
 
-                        <div class="form-group">
+                        <div class="form-group"><!-- Name -->
                             <label for="post_username">Name</label>
                             <input type="text" value="<?php echo $user_name; ?>" class="form-control" name="user_name" disabled>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group"><!-- Username -->
                             <label for="post_username">Username</label>
                             <input type="text" value="<?php echo $username; ?>" class="form-control" name="username" disabled>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group"><!-- Number -->
                             <label for="post_number">Number</label>
                             <input type="text" value="<?php echo $user_number; ?>" class="form-control" name="user_number" disabled>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group"><!-- Email -->
                             <label for="post_email">Email</label>
                             <input type="email" value="<?php echo $user_email; ?>" class="form-control" name="user_email" disabled>
                         </div>

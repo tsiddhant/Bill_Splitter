@@ -1,21 +1,18 @@
-<div class="position-relative">
+<div class="position-relative"><!-- Container for Friends Sidebar -->
     <div class="col-lg-3 d-flex ">
         <div class="bg-light" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-
-
                 <div class="container">
-                    <br><br>
-
-                    <br><br>
+                    <br><br><br><br>  
 <!-- SHOWING ALL FRIEND REQUESTS FOR THE USER -->
                     <div class="well form-group">
                         <h5>FRIEND REQUESTS
                             <hr>
                         </h5>
                         <div class="form-group">
-                            <table class="table-borderless table-responsive">
+                            <table class="table-borderless table-responsive"><!-- Creating Table For Showing Friend Requests -->
                                 <?php
+                                //Query to get All Pending Friend Requests
                                 $query = "SELECT * FROM friend_request WHERE status = 'pending' AND user2_id = {$_SESSION['user_id']} ";
                                 $result_query = mysqli_query($connection, $query);
                                 while ($row = mysqli_fetch_assoc($result_query)) {
@@ -45,7 +42,7 @@
                     <?php
                     $usernameErr = '';
                     if (isset($_POST['request_friend'])) {
-
+                        // query to check whether username is valid
                         $friend_id = $_POST['username'];
                         $query = "SELECT * FROM users";
                         $result_query = mysqli_query($connection, $query);
@@ -56,7 +53,7 @@
                                 $usernameErr = "Username Exists!!";
                             }
                         }
-                        
+                            //Query to check if username is friend or not
                             $query = "SELECT * FROM users WHERE username = '{$friend_id}' ";
                             $select_user_profile_query = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_array($select_user_profile_query)) {
@@ -67,7 +64,7 @@
                                 $user_number = $row['number'];
                             }
 
-
+                        //Query to check if Username Already Friend
                         $query2 = "SELECT * FROM friends WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
                         $result_query2 = mysqli_query($connection, $query2);
                         while ($row = mysqli_fetch_assoc($result_query2)) {
@@ -78,7 +75,7 @@
                                     </script>";
                             }
                         }
-
+                        //Query to check if Friend Request Already Send And Still Pending
                         $query3 = "SELECT * FROM friend_request WHERE user1_id = {$_SESSION['user_id']} OR user2_id = {$_SESSION['user_id']} ";
                         $result_query3 = mysqli_query($connection, $query3);
                         while ($row = mysqli_fetch_assoc($result_query3)) {
@@ -100,6 +97,7 @@
                                 echo "<script>
                                     alert('!!! REQUEST SEND !!!');
                                     </script>";
+                                //Query to Save Friend Request In Database
                                 $query = "INSERT INTO friend_request (`user1_id`, `user2_id`, `status`) ";
                                 $query .= "VALUES ('{$_SESSION['user_id']}', '{$user_id}', 'pending') ";
                                 $result_query = mysqli_query($connection, $query);
@@ -115,26 +113,25 @@
 
                     ?>
 
-
+<!-- Form to SEND FRIEND REQUESTS -->
                     <div class="well form-group">
                         <form action="" method="post">
                             <h5 class="">Send REQUESTS
                                 <hr>
                             </h5>
 
-                            <div class="form-group">
+                            <div class="form-group"><!-- Username -->
                                 <input type="text" placeholder="Enter Username" class="form-control" name="username" required>
                                 <?php echo $usernameErr; ?>
                             </div>
                             <span>
-                                <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-12"><!-- Friend Request Send Button -->
                                     <input class="btn btn-primary btn-block" type="submit" name="request_friend" value="SEND">
                                 </div>
                             </span>
                         </form>
                     </div>
                 </div>
-
 
             </div>
         </div>
@@ -156,17 +153,18 @@ if (isset($_GET['accept'])) {
     }
 
 
-
+// Query to send Email To Friend Whose Request is Accepted
     $text = "Friend request accepted by {$_SESSION['username']}.";
     $subject = "Bill_Splitter : Friend Request Accepted";
     $mail_status = sendmail($user_email, $username, $subject, $text);
-
+//Query to add friend in Database
     $user_id = $_GET['accept'];
     $query = "INSERT INTO friends(`user1_id`, `user2_id`, `date`) VALUES ({$user_id},{$_SESSION['user_id']},now())";
     $result_query = mysqli_query($connection, $query);
     if (!$result_query) {
         die("ERROR IN ADDING FRIEND " . mysqli_error($connection));
     }
+//Query to Delete friend request from pending request database
     if ($result_query) {
         $query2 = "DELETE FROM friend_request WHERE user1_id = $user_id";
         $result_query2 = mysqli_query($connection, $query2);
@@ -178,7 +176,7 @@ if (isset($_GET['accept'])) {
 }
 ?>
 <?php
-if (isset($_GET['reject'])) {
+if (isset($_GET['reject'])) {//Query to reject friend request
     $user_id = $_GET['reject'];
         $query = "DELETE FROM friend_request WHERE user1_id = $user_id";
         $result_query = mysqli_query($connection, $query);

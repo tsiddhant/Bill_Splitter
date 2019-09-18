@@ -16,7 +16,7 @@
 
 <!-- QUERY TO SHOW ALL FRIENDS WITH USER -->
                     <?php
-                    $limit = 5;  
+                    $limit = 5; //PAGINATION  
                     if (isset($_GET["page"])) {
                         $page  = $_GET["page"]; 
                         } 
@@ -24,7 +24,7 @@
                         $page=1;
                         };  
                     $start_from = ($page-1) * $limit;
-
+                    // Query to get all friends of user
                     $query = "SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']} LIMIT $start_from, $limit";
                     $select_friends = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_assoc($select_friends)) {
@@ -48,7 +48,7 @@
 
                 </tbody>
             </table>
-            <?php  
+            <?php  //PAGINATION
                 $result_db = mysqli_query($connection,"SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user1_id WHERE f.user2_id = {$_SESSION['user_id']} UNION SELECT p.* FROM friends f JOIN users p ON p.user_id = f.user2_id WHERE f.user1_id = {$_SESSION['user_id']} "); 
                 $row_db = mysqli_fetch_row($result_db);  
                 $total_records = $row_db[0];  
@@ -65,7 +65,7 @@
 <?php      if(isset($_GET['view'])){   ?>
         <h2 class="mt-4 align-content-center">Friend Expense</h2>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-warning">
+            <table class="table table-bordered table-hover table-warning"><!-- Creating Table to Show Expenses Due with particular friend -->
                 <thead>
                     <tr>
                         <th scope="col">Group Name:</th>
@@ -77,15 +77,15 @@
                 </thead>
                 <tbody class="table-hover"></tbody>
         <?php
-       
-                $user__name;
+            //Query to select particular friend
+            $user__name;
             $query = "SELECT * FROM users WHERE user_id = '{$_GET['view']}' ";
             $select_frs = mysqli_query($connection, $query);
             while ($row = mysqli_fetch_assoc($select_frs))
                 $user__name             = $row['username'];
 
 
-
+            //Query to get Expenses due with selected friend
             $query9 = "SELECT e.group_id,e.group_name,l.amount_due,l.date,l.user_name,l.pay_to,l.liability_id FROM groups e LEFT JOIN liability l ON e.group_id = l.group_id WHERE l.user_name = '$user__name' AND l.status = 'pending' AND l.pay_to = '{$_SESSION['username']}' ";                    
             $select_expense = mysqli_query($connection, $query9);
                             while ($row = mysqli_fetch_assoc($select_expense)) {
@@ -128,6 +128,7 @@
     $result_check = mysqli_query($connection,$query_check);
     $count = mysqli_num_rows($result_check);
         if(!$count){
+            //Query to delete friend with no dues
             $query = "DELETE FROM friends WHERE user2_id = {$the_user_id} AND user1_id = {$_SESSION['user_id']} || user1_id = {$the_user_id} AND user2_id = {$_SESSION['user_id']}";
             $delete_user_query = mysqli_query($connection, $query);
             if (!$delete_user_query) {
@@ -137,7 +138,7 @@
         }
         else{ 
             $message = "Payments Due";
-            echo "<script type='text/javascript'>alert('$message');</script>";
+            echo "<script type='text/javascript'>alert('$message');</script>";//Show message if Payments are due
         }
        
     }
@@ -149,7 +150,7 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
-  <!-- Modal content -->
+  <!-- Modal content Showing that Payment is being Processed-->
   <div class="modal-content col-lg-4">
     <span class="close">&times;</span>
     <div class="wait alert-warning">
@@ -175,7 +176,7 @@
   </div>
     
     <?php
-        
+        // Query to update liability TABLE and changing payment status
         if (isset($_GET['pay'])) {
             $the_user_id_pay = ($_GET['pay']);
             $query_pay = "UPDATE liability SET status = 'paid' WHERE liability_id = '{$the_user_id_pay}' ";

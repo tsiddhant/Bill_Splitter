@@ -8,36 +8,36 @@
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
-	<body class="is-preload">
+	<body class="is-preload"><!-- Body Started -->
 
-			<header id="header">
+			<header id="header"><!-- Header Navigation Bar -->
 				<nav>
 					<a href="#menu">Menu</a>
 				</nav>
-			</header>
+			</header><!-- End Of Nav Header -->
 
-			<nav id="menu">
+			<nav id="menu"><!-- Toggle Navigation Bar -->
 				<ul class="links">
-					<li><a href="login.php">Login</a></li>
-					<li><a href="register.php">Register</a></li>
+					<li><a href="login.php"><h2>Login</h2></a></li>
+					<li><a href="register.php"><h2>Register</h2></a></li>
 				</ul>
 			</nav>
 
-			<section id="banner">
+			<section id="banner"><!-- Top Container For Video -->
 				<div class="inner">
 					<h1><b><i>Bill Splitter</i></b></h1>
-					<p>Less stress when sharing expenses<br />
-					Keep track of your shared expenses and balances with housemates, trips, groups, friends, and family.</p>
+					<p><b>Less stress when sharing expenses<br />
+					Keep track of your shared expenses and balances with housemates, trips, groups, friends, and family.</b></p>
 				</div>
-				<video autoplay loop muted playsinline src="images/banner.mp4"></video>
+				<video autoplay loop muted playsinline src="images/banner.mp4"></video><!-- Video Tag -->
 			</section>
 
-		<!-- Highlights -->
+		<!-- Content -->
 			<section class="wrapper">
 				<div class="inner">
 					<header class="special">
 						<h2><b><i>Easy splitting of group expenses</i></b></h2>
-						<p>The simplest way to calculate who owes what.</p>
+						<p><b>The simplest way to calculate who owes what.</b></p>
 					</header>
 					<div class="highlights">
 						<section>
@@ -80,15 +80,15 @@
 				</div>
 			</section>
 
-		<!-- CTA -->
+		<!-- Parallax -->
 			<section id="cta" class="wrapper">
 				<div class="inner">
-					<h2>Sharing Expenses With Anyone, On Trips</h2>
+					<h2><b>Sharing Expenses With Anyone, On Trips</b></h2>
 					<p><br><br></p>
 				</div>
 			</section>
 
-		<!-- Testimonials -->
+		<!-- About Us -->
 			<section class="wrapper">
 				<div class="inner">
 					<div class="testimonials">
@@ -129,5 +129,5 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-	</body>
+	</body><!-- End of Body Tag -->
 </html>

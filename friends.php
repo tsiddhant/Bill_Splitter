@@ -1,8 +1,8 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/new_admin_header.php"; ?>
-<?php include "includes/admin_navigation.php"; ?>
-<link rel="stylesheet" href="friends.css">
-<?php include "mail_function/mail_function.php"; ?>
+<?php include "includes/db.php"; ?><!-- Including Database Connection File -->
+<?php include "includes/new_admin_header.php"; ?><!-- Including Header File -->
+<?php include "includes/admin_navigation.php"; ?><!-- Including navigation File -->
+<link rel="stylesheet" href="friends.css"><!-- Including CSS File -->
+<?php include "mail_function/mail_function.php"; ?><!-- Including mail sending File -->
 
 <div class="row">
 <?php
@@ -11,4 +11,4 @@
 ?>
 </div>
 
-<?php include "includes/admin_footer.php"; ?>
+<?php include "includes/admin_footer.php"; ?><!-- Including Footer File -->
