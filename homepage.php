@@ -25,7 +25,7 @@
 
 			<section id="banner">
 				<div class="inner">
-					<h1>Bill Splitter</h1>
+					<h1><b><i>Bill Splitter</i></b></h1>
 					<p>Less stress when sharing expenses<br />
 					Keep track of your shared expenses and balances with housemates, trips, groups, friends, and family.</p>
 				</div>
@@ -36,7 +36,7 @@
 			<section class="wrapper">
 				<div class="inner">
 					<header class="special">
-						<h2>Easy splitting of group expenses</h2>
+						<h2><b><i>Easy splitting of group expenses</i></b></h2>
 						<p>The simplest way to calculate who owes what.</p>
 					</header>
 					<div class="highlights">
