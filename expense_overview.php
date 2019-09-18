@@ -29,7 +29,7 @@
               <tbody>
 
               <?php
-              $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['user_id']}%' OR admin_username = '{$_SESSION['username']}' ORDER BY date DESC";
+              $query = "SELECT * FROM groups WHERE members LIKE '%{$_SESSION['username']}%' OR admin_username = '{$_SESSION['username']}' ORDER BY date DESC";
               $result = mysqli_query($connection, $query);
               while ($row = mysqli_fetch_assoc($result)) {
                   $group_id         = $row['group_id'];
@@ -46,7 +46,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  <tbody class="hide" style="display:none;">
+                  <tbody class="hide" style="">
               <?php
                               if(isset($_GET['value'])){
                                 $tags = $_GET['value'];
@@ -77,7 +77,7 @@
                                       $total_1            = $row_1['total_expense'];
                                       $paidby_1           = $row_1['paid_by'];
                                       $date_1             = $row_1['date'];
-                                      echo "<tr><td colspan='4'><h5>$date_1</h5></td></tr>";
+                                      echo "<tr><td colspan='4'><h4>$date_1</h4></td></tr>";
                                       echo "<tr>";
                                       echo "<td><h4>$i.</h4></td>";
                                       echo "<td><h4>$expense_desc_1</h4></td>";
@@ -116,11 +116,11 @@
 
 <script>
 // SCRIPT TO HIDE AND SHOW TABLE ROWS
-$(document).ready(function() {
-	$('[data-toggle="toggle"]').change(function(){
-		$(this).parents().next('.hide').toggle();
-	});
-});
+// $(document).ready(function() {
+// 	$('[data-toggle="toggle"]').change(function(){
+// 		$(this).parents().next('.hide').toggle();
+// 	});
+//});
 
 </script>
 <script>

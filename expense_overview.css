@@ -111,7 +111,7 @@ h2 a {
 }
 
 .container tr:nth-child(even) {
-	  background-color: white;
+	  background-color: rgb(255, 255, 255);
 }
 
 .container th {

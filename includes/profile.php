@@ -18,26 +18,63 @@ if (isset($_SESSION['username'])) {
 ?>
 
 <?php
-
+$message='';
+//  IMAGE VALIDATION
   if(isset($_POST["submit"]))
  {   
-// DELETE PREVIOUS PHOTO
-    if(file_exists($picsource)){
-        unlink($picsource);
-    }
-
 // UPLOAD NEW PHOTO
     $filename = $_FILES["uploadfile"]["name"];
     $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "uploaded_images/".$filename;
-    move_uploaded_file($tempname,$folder);
-    $query = "UPDATE users SET picsource = '{$folder}' WHERE user_id = '{$_SESSION['user_id']}' ";
-    $result_query = mysqli_query($connection,$query);
-    header("Location: profile.php");
+
+        // Get Image Dimension
+        $fileinfo = @getimagesize($tempname);
+        $width = $fileinfo[0];
+        $height = $fileinfo[1];
+        
+        $allowed_image_extension = array(
+            "png",
+            "jpg",
+            "jpeg"
+        );
+        
+        // Get image file extension
+        $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+        
+        // Validate file input to check if is not empty
+        if (! file_exists($tempname)) {
+            $message = "Choose image file to upload.";
+        }    // Validate file input to check if is with valid extension
+        else if (! in_array($file_extension, $allowed_image_extension)) {
+            $message = "Upload valiid images. Only PNG and JPEG are allowed.";
+        }    // Validate image file size
+        else if (($_FILES["uploadfile"]["size"] > 2000000)) {
+            $message = "Image size exceeds 2MB";
+        }    // Validate image file dimension
+        else if ($width > "300" || $height > "200") {
+            $message = "Image dimension should be within 300X200";
+        } else {
+            if(empty($response)){
+                // DELETE PREVIOUS PHOTO
+                if(file_exists($picsource)){
+                    unlink($picsource);
+                }
+            }
+            
+            //INSERT NEW PHOTO
+            $folder = "uploaded_images/".$filename;
+            if (move_uploaded_file($tempname, $folder)) {
+                $message = "Image uploaded successfully.(Reload to view it!!)";
+
+                $query = "UPDATE users SET picsource = '{$folder}' WHERE user_id = '{$_SESSION['user_id']}' ";
+                $result_query = mysqli_query($connection,$query);
+            } else {
+                $message = "Problem in uploading image files.";
+            }
+        }
  }
 ?>
     <div class="" style="">
-  		<div><h1>PROFILE</h1></div>
+  		<div><h1><center>PROFILE</center></h1></div>
     </div>
 <hr>
 <div class="container col-lg-3" style="margin-right:70%;">
@@ -87,9 +124,21 @@ if (isset($_SESSION['username'])) {
                             <label for="post_email">Email</label>
                             <input type="email" value="<?php echo $user_email; ?>" class="form-control" name="user_email" disabled>
                         </div>
-
+                        <div class="form-group">
+                            <!--  -->
+                            <?php //if($message!=''){ ?>
+                            <div class="alert alert-success">
+                                <strong><?php echo $message; ?></strong>
+                            </div>
+                            <script>
+                                $(document).ready(function(){
+                                    $(".alert").fadeOut(5000);
+                                });
+                            </script>
+                            <?php //} ?>
+                            <!--  -->
+                        </div>
                         </form>
-                    
                   </div>
                 </div>
               </div>

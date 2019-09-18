@@ -46,7 +46,7 @@
                              $select_expenses = mysqli_query($connection, $query3);
                              $expenses_count = mysqli_fetch_assoc($select_expenses);
                       ?>
-                      <p class="card-title"><?php echo $expenses_count['sum']; ?>
+                      <p class="card-title"><?php if($expenses_count['sum']){echo $expenses_count['sum'];} else{echo "0";} ?>
                         <p><br>
                     </div>
                   </div>

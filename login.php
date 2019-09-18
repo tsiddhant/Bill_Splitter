@@ -2,14 +2,13 @@
 <?php include "includes/navigation.php"; ?>
 <link rel="stylesheet" href="login.css">
 
-
 <div class="container login-form">     
         <form  action="includes/login.php" method="post">
             <h1 style="text-align: center">LOGIN</h1>
          
             <div class="form-group"> 
                 <label for="username">Username:</label>
-                <input class="form-control" type="text" id="username" name="username" placeholder="Username" required autofocus>                        
+                <input class="form-control" type="text" id="username" name="username" placeholder="Username" required autofocus>                    
             </div>
             <div class="form-group">
                 <label for="pwd" >Password:</label>
@@ -25,11 +24,19 @@
             </div>
             <div class="clearfix"> 
                 <label class="pull-left checkbox-inline">
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" class=" remember_me" name="remember_me" value="1"> Remember me
                 </label>
                 <a class="pull-right text-success" id="forgot-password" href="mail_function/reset_password.php" style="color:white;">Forgot Password?</a>
             </div>   
         </form>         
     </div>
 
+<?php session_start(); ?>
 <?php include "includes/footer.php"; ?>
+<?php
+if(isset($_SESSION["message"])){
+    $message = "Invalid Username Or Password!!";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+    $_SESSION["message"] = null;
+}
+?>

@@ -26,7 +26,7 @@
               <div class="card-header">
                 <h5 class="card-title">Expenses(Monthly)</h5>
               </div>
-              <div class="card-body embed-responsive">
+              <div class="card-body embed-responsive table-responsive">
                 <form action="#" method="post">
                     <select name="select1"> 
                         <option value="2019" <?php if(isset($_POST['select1']) && $_POST['select1'] == "2019") echo 'selected="selected"';?> >2019</option> 
@@ -50,7 +50,7 @@
               <div class="card-header">
               <h5 class="card-title">Expenses(Weekly)</h5>
               </div>
-              <div class="card-body embed-responsive">
+              <div class="card-body embed-responsive table-responsive">
                 <form action="#" method="post">
                     <select name="select2"> 
                         <option value="2019" <?php if(isset($_POST['select2']) && $_POST['select2'] == "2019") echo 'selected="selected"';?> >2019</option> 
@@ -62,8 +62,8 @@
                     for ($i = 0; $i < 12; $i++) {
                         $time = strtotime(sprintf('%d months', $i));   
                         $label = date('F', $time);   
-                        $value = date('n', $time);
-                        echo "<option value='$value'>$label</option>";
+                        $value = date('m', $time);
+                        echo "<option value='$value'>$value</option>";
                     }
                     ?>
                     </select>
@@ -225,7 +225,7 @@ delete_members($admin_id, $group_id, $connection);
             <div class="jumbotron" style="width:250px;" id="new3">
             <div>
 
-<!-- AJAX --><div id="js"><h6><b><i>NO OPTION SELECTED</i></b></h3></div>
+<!-- AJAX --><div id="js"><h6>NO OPTION SELECTED</h6></div>
             </div>
             </div>
             </span>          
@@ -245,18 +245,18 @@ if(isset($_POST["add_expense"]))
     $tag    = $_POST['category'];
 
 //////////////////////////CALCULATING SUM AND CHECKING
-$money=0; 
-$sum=0;
-$flag2=0;
-calc_sum($money, $sum, $flag2, $net_amount);
-//////////////////////////
-bill_split($net_amount, $sum, $group_id, $description, $currency, $paid_by, $tag, $connection);
-    } 
+  $money=0; 
+  $sum=0;
+  $flag2=0;
+  //calc_sum($money, $sum, $flag2, $net_amount);
+  //////////////////////////
+  bill_split($flag2, $net_amount, $sum, $group_id, $description, $currency, $paid_by, $tag, $connection);
+} 
 
 if(isset($_POST["add_expense"]))  {
 ///////////////////DELETE LIABILITY FIELDS WITH SAME USERNAME AND PAID TO
-del_duplicate($connection);
-    }
+  del_duplicate($connection);
+}
 ?>
 <!-- SCRIPT FUNCTIONS TO SHOW AND HIDE (TOGGLE) FORMS ON BUTTON CLICK -->
 <script>   
@@ -380,7 +380,7 @@ function check(){
                     $year_choose = date('Y');
                     }
         
-               $query3 = "SELECT MONTHNAME(date) AS Month, SUM(total_expense) AS Sum1 FROM expense WHERE paid_by = '{$_SESSION['username']}' AND DATE_FORMAT(date, '%Y') = '{$year_choose}' GROUP BY DATE_FORMAT(date, '%m') ORDER BY DATE_FORMAT(date, '%m') ASC ";
+               $query3 = "SELECT MONTHNAME(date) AS Month, SUM(total_expense) AS Sum1 FROM expense WHERE paid_by = '{$_SESSION['username']}' AND group_id = '{$group_id}' AND DATE_FORMAT(date, '%Y') = '{$year_choose}' GROUP BY DATE_FORMAT(date, '%m') ORDER BY DATE_FORMAT(date, '%m') ASC ";
                $result_query_sum3 = mysqli_query($connection,$query3);
                while($row = mysqli_fetch_assoc($result_query_sum3)){
                     $month = $row['Month'];
@@ -457,7 +457,7 @@ function check(){
                     $month_choose = date('m');
                     }
         
-            $query3 = "SELECT WEEK(date) AS week, SUM(total_expense) AS Sum1 FROM expense WHERE paid_by = '{$_SESSION['username']}' AND DATE_FORMAT(date, '%Y') = '{$year_choose}' AND DATE_FORMAT(date, '%m') = '{$month_choose}' GROUP BY week ORDER BY WEEK(date) ASC ";
+            $query3 = "SELECT WEEK(date) AS week, SUM(total_expense) AS Sum1 FROM expense WHERE paid_by = '{$_SESSION['username']}' AND group_id = '{$group_id}' AND DATE_FORMAT(date, '%Y') = '{$year_choose}' AND DATE_FORMAT(date, '%m') = '{$month_choose}' GROUP BY week ORDER BY WEEK(date) ASC ";
             $result_query_sum3 = mysqli_query($connection,$query3);
             while($row = mysqli_fetch_assoc($result_query_sum3)){
                 $week = $row['week'];

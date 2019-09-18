@@ -156,9 +156,10 @@
             <strong>Wait!</strong> Payment Being Processed.
         </div>
         <script>
+
             $(document).ready(function(){
-                <?php sleep(2); ?>
                 $(".wait").fadeOut(5000);
+                <?php sleep(1); ?>
             });
         </script>
 
@@ -168,6 +169,7 @@
         <script>
             $(document).ready(function(){
                 $(".alert").fadeIn(6000);
+                <?php sleep(1); ?>
             });
         </script>
   </div>

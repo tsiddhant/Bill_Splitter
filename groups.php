@@ -49,7 +49,7 @@ if(isset($_POST['add_group'])){
 
 
                     <?php
-                    $limit = 5;  
+                    $limit = 4;  
                     if (isset($_GET["page"])) {
                         $page  = $_GET["page"]; 
                         } 
@@ -75,7 +75,7 @@ if(isset($_POST['add_group'])){
                         echo "<td>$status</td>";
                         echo "<td>$date</td>";
 
-                        echo "<td><a href='groups.php?comment={$group_id}'>Comments</a></td>";
+                        echo "<td><a href='groups.php?comment={$group_id}&name={$group_name}'>Comments</a></td>";
 
                         echo "</tr>";
                         $i++;
@@ -119,7 +119,8 @@ if(isset($_POST['add_group'])){
  <?php if(isset($_GET['comment'])) {
 
       $the_group_id = $_GET['comment'];
-
+      $the_group_name = $_GET['name'];
+      echo "<h1><center><u>$the_group_name</u></center></h2><h4><center>Comments Section</center></h4>";
             if (isset($_POST['create_comment'])) {
                 $comment_content = $_POST['content'];
                 if (!empty($comment_content)) {
@@ -172,7 +173,7 @@ if(isset($_POST['add_group'])){
                 die('Query Failed' . mysqli_error($connection));
             }
         ?>
-        <div class="" id="cdisplay" style="overflow:scroll; height:300px; width:500px;">
+        <div class="" id="cdisplay" style="overflow:scroll; height:400px; width:500px;background-color:whitesmoke;">
         <?php
             while ($row = mysqli_fetch_array($select_comment_query)) {
             $comment_date   = $row['comment_date']; 

@@ -7,9 +7,21 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     $username = mysqli_real_escape_string($connection, $username);
+     
+    if(!empty($_POST['remember_me'])){
+        $hour = time() + 3600*24*30;
+        setcookie('username', $username, $hour);
+        setcookie('password', $password, $hour);
+    }
 
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_query = mysqli_query($connection, $query);
+    $check_user_exists = mysqli_num_rows($select_user_query);
+    if(!$check_user_exists){
+        $_SESSION["message"] = "INVALID USERNAME";
+        header("location: ../login.php");
+    }
+
     if (!$select_user_query) {
         die("QUERY FAILED" . mysqli_error($connection));
     }
@@ -29,7 +41,7 @@ if (isset($_POST['login'])) {
 
         header("Location: ../admin.php");
     } else {
-        header("Location: ../login.php");
+       // header("Location: ../login.php");
     }
 }
 
