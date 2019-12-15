@@ -1,56 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Reset Password</title>
-
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="reset_password.css">
     <link href="../css/simple-sidebar.css" rel="stylesheet">
-
 </head>
-
 <body>
-
-    <div class="d-flex" id="wrapper">
-
-
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">RESET PASSWORD<br></div>
-            <div class="list-group list-group-flush">
-            </div>
-        </div>
-
-        <div id="page-content-wrapper">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"><br><br>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="testbox">
+                <form method = "POST" action = "">
+                <div class="inputbox">
+                <label for="post_username"><h3 style="margin:auto;">Enter Username</h3></label>
+                <input type="text" value="" name="username" class="form-control">
                 </div>
-            </nav>
-
-            <div class="container jumbotron">
-                <div id="page-wrapper">
-                            <div class="col-lg-4 offset-sm-3">
-                                <form action="" method="post">
-                                    <div class="form-group">
-                                        <label for="post_username"><h3>Username</h3></label>
-                                        <input type="text" value="" name="username" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-primary btn-block" value="Reset password" name="reset">
-                                    </div>
-                                </form>
-                            </div>
+                <div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Reset password" name="reset">
                 </div>
-            </div>
-        </div>
-    </div>
+                </form>
+                </div>
 </body>
 </html>
 
@@ -82,7 +53,8 @@ if (isset($_POST['reset'])) {
         } else {
             echo "some problem in sending email " . mysqli_error($connection);
         }
-    } else {
+    } 
+    else {
         echo "Username doesn't exist" . "<br>" . "Enter valid username";
     }
 }

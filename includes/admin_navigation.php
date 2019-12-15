@@ -1,3 +1,4 @@
+<!-- NAVIGATION PANEL -->
 <div class="d-flex" id="wrapper">
 
 
@@ -6,7 +7,7 @@
         <div class="list-group list-group-flush">
             <a href="admin.php" class="list-group-item list-group-item-action bg-light">Dashboard</a>
             <a href="groups.php" class="list-group-item list-group-item-action bg-light">Groups</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Expense Overview</a>
+            <a href="expense_overview.php" class="list-group-item list-group-item-action bg-light">Expense Overview</a>
             <a href="friends.php" class="list-group-item list-group-item-action bg-light">Friends</a>
             <a href="profile.php" class="list-group-item list-group-item-action bg-light">Profile</a>
             <a href="includes/logout.php" class="list-group-item list-group-item-action bg-light">Logout</a>
@@ -25,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home Page<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="homepage.php">Home Page<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="profile.php?source=edit_profile">Edit Profile</a>

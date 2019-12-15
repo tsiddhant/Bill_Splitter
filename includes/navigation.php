@@ -1,3 +1,4 @@
+<!-- NAVIGATION BAR FOR LOGIN AND REGISTRATION PAGE -->
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
