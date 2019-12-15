@@ -42,7 +42,6 @@ if (isset($_GET['source'])) {
             // query to update user profile details
             $query = "UPDATE users SET ";
             $query .= "name  = '{$user_name}', ";
-            $query .= "username = '{$username}', ";
             $query .= "email = '{$user_email}', ";
             $query .= "number = '{$user_number}', ";
             $query .= "password   = '{$user_password}' ";
